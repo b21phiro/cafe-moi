@@ -6,11 +6,11 @@ int main()
 {
 
 	CafeMoi::AssetsManager assets;
-	assets.loadTexture("Test", "resources/cafemoi-sprite-sheet.png");
+	assets.loadTexture("sprite-sheet", "resources/cafemoi-sprite-sheet.png");
 
-	sf::RenderWindow window( sf::VideoMode( { 200, 200 } ), "SFML works!" );
+	sf::RenderWindow window( sf::VideoMode( { 1280u, 720u } ), "Cafe Moi - v.0.1.0" );
 
-	sf::Sprite sprite(assets.getTexture("Test"));
+	sf::Sprite sprite(assets.getTexture("sprite-sheet"));
 
 	while ( window.isOpen() )
 	{
