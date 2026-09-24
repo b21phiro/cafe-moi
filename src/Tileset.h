@@ -86,7 +86,8 @@ namespace CafeMoi
         std::vector<sf::Sprite> tiles;
 
         /**
-         * #TODO: Write a description of why we store a pointer.
+         * The texture sourced used by the tileset.
+         * I store the address of the texture rather than the entire copy of it.
          */
         sf::Texture* texturePtr;
 
