@@ -31,6 +31,8 @@ namespace CafeMoi
          * @param columns - The number of columns in the tileset.
          * @param rows - The number of rows in the tileset.
          * @param firstTileID - The ID of the first tile in the tileset. Defaults to 1.
+         * @param tileSize - The size of each tile in the tileset. Defaults to 32.
+         * @param fallbackTileID - The ID of the fallback tile to use when an invalid ID is provided. Defaults to -1.
          */
         explicit Tileset(sf::Texture& texture, int columns, int rows, int firstTileID = 1, int tileSize = 32, int fallbackTileID = -1);
 
