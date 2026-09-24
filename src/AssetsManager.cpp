@@ -1,9 +1,7 @@
 #include "AssetsManager.h"
-
+#include "Logger.h"
 #include <algorithm>
 #include <iostream>
-
-#include "Logger.h"
 
 CafeMoi::AssetsManager::AssetsManager()
 {
