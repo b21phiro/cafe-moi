@@ -1,13 +1,10 @@
 #include "Tileset.h"
-
 #include <iostream>
-
 #include "Logger.h"
 #include "pugixml.hpp"
 
-CafeMoi::Tileset::Tileset(sf::Texture& texture, int columns, int rows, int firstTileID, int tileSize, int fallbackTileID)
+CafeMoi::Tileset::Tileset(sf::Texture& texture, int columns, int rows, int tileSize, int fallbackTileID)
 : tileAmount(columns * rows)
-, firstTileID(firstTileID)
 , columns(columns)
 , rows(rows)
 , tileSize(tileSize)
@@ -24,7 +21,7 @@ CafeMoi::Tileset::Tileset(sf::Texture& texture, int columns, int rows, int first
             int tileX = column * tileSize;
             int tileY = row    * tileSize;
             sf::Sprite sprite(*texturePtr, sf::IntRect(
-                {  tileX,       tileY    },
+                  { tileX,    tileY    },
                   { tileSize, tileSize }));
 
             tiles.emplace_back(sprite);
@@ -35,7 +32,6 @@ CafeMoi::Tileset::Tileset(sf::Texture& texture, int columns, int rows, int first
 
 CafeMoi::Tileset::Tileset(AssetsManager& assets, const std::filesystem::path& xmlFile)
 : tileAmount(0)
-, firstTileID(0)
 , columns(0)
 , rows(0)
 , tileSize(0)
@@ -70,8 +66,8 @@ CafeMoi::Tileset::Tileset(AssetsManager& assets, const std::filesystem::path& xm
             int tileX = column * tileSize;
             int tileY = row    * tileSize;
             sf::Sprite sprite(*texturePtr, sf::IntRect(
-                {  tileX,       tileY    },
-                  { tileSize, tileSize }));
+                { tileX,    tileY    },
+                { tileSize, tileSize }));
 
             tiles.emplace_back(sprite);
         }
@@ -82,7 +78,7 @@ CafeMoi::Tileset::Tileset(AssetsManager& assets, const std::filesystem::path& xm
 
 sf::Sprite CafeMoi::Tileset::getTile(int id)
 {
-    if (tileAmount == 0 || id > tileAmount || id < firstTileID)
+    if (tileAmount == 0 || id > tileAmount || id < 0)
     {
         Logger::error("Tileset", "Tile ID " + std::to_string(id) + " is out of bounds!");
         if (fallbackTileID == -1)
@@ -91,5 +87,5 @@ sf::Sprite CafeMoi::Tileset::getTile(int id)
         }
         return getTile(fallbackTileID);
     }
-    return tiles[id - firstTileID];
+    return tiles[id];
 }

@@ -21,7 +21,9 @@ add_executable(${PROJECT_NAME}
         src/AssetsManager.cpp
         src/Logger.cpp
         src/Tileset.cpp
-        src/pugixml.cpp)
+        src/pugixml.cpp
+        src/Tilemap.h
+        src/Tilemap.cpp)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_link_libraries(${PROJECT_NAME} PRIVATE SFML::Graphics)

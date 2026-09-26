@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "AssetsManager.h"
+#include "Tilemap.h"
 #include "Tileset.h"
 
 int main()
@@ -9,11 +10,7 @@ int main()
 	CafeMoi::AssetsManager assets;
 	assets.loadTexture("sprite-sheet", "resources/cafemoi-sprite-sheet.png");
 
-	CafeMoi::Tileset tileset(assets, "resources/cafemoi-sprite-sheet.xml");
-
-	sf::Sprite sprite1 = tileset.getTile(0);
-	sf::Sprite sprite2 = tileset.getTile(1);
-	sprite2.setPosition({ 32.f, 0.f });
+	CafeMoi::Tilemap tilemap(assets, "resources/building-1.xml");
 
 	sf::RenderWindow window( sf::VideoMode( { 1280u, 720u } ), "Cafe Moi - v.0.1.0" );
 
@@ -28,8 +25,6 @@ int main()
 		}
 
 		window.clear();
-		window.draw(sprite1);
-		window.draw(sprite2);
 		window.display();
 
 	}

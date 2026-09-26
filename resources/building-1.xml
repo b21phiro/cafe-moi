@@ -3,12 +3,14 @@
     <name>Building 1</name>
     <tilemap>
         <tileset>
-            <firstgid>1</firstgid>
-            <columns></columns>
             <image>
+                <source>resources/cafemoi-sprite-sheet.png</source>
                 <name>sprite-sheet</name>
-                <source>./cafemoi-sprite-sheet.xml</source>
             </image>
+            <columns>8</columns>
+            <rows>8</rows>
+            <tilesize>32</tilesize>
+            <fallbackID>2</fallbackID>
         </tileset>
         <layers>
             <layer>
