@@ -9,10 +9,10 @@ int main()
 	CafeMoi::AssetsManager assets;
 	assets.loadTexture("sprite-sheet", "resources/cafemoi-sprite-sheet.png");
 
-	CafeMoi::Tileset tileset(assets.getTexture("sprite-sheet"), 8, 8, 0, 32, 2);
+	CafeMoi::Tileset tileset(assets, "resources/cafemoi-sprite-sheet.xml");
 
 	sf::Sprite sprite1 = tileset.getTile(0);
-	sf::Sprite sprite2 = tileset.getTile(1);
+	sf::Sprite sprite2 = tileset.getTile(90);
 	sprite2.setPosition({ 32.f, 0.f });
 
 	sf::RenderWindow window( sf::VideoMode( { 1280u, 720u } ), "Cafe Moi - v.0.1.0" );

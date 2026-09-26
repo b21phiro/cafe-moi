@@ -5,6 +5,8 @@
 #include <SFML/Graphics/Texture.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
+#include "AssetsManager.h"
+
 namespace CafeMoi
 {
     /**
@@ -33,9 +35,20 @@ namespace CafeMoi
          * @param firstTileID - The ID of the first tile in the tileset. Defaults to 1.
          * @param tileSize - The size of each tile in the tileset. Defaults to 32.
          * @param fallbackTileID - The ID of the fallback tile to use when an invalid ID is provided. Defaults to -1.
+         * 
          */
         explicit Tileset(sf::Texture& texture, int columns, int rows, int firstTileID = 1, int tileSize = 32, int fallbackTileID = -1);
 
+        /**
+         * 
+         * Creates a new tileset, using an XML file and the `AssetsManager`.
+         * 
+         * @param assets - Uses the assets-manager with loaded textures necessary to create the tileset.
+         * @param xmlFile - Path to an XML file containing the data.
+         * 
+         */
+        explicit Tileset(AssetsManager& assets, const std::filesystem::path& xmlFile);
+        
         /**
          *
          * Returns a copy of a tile rather than a reference.
@@ -48,6 +61,8 @@ namespace CafeMoi
          *
          */
         sf::Sprite getTile(int id);
+        
+
 
     private:
 

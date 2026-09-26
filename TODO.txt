@@ -8,6 +8,5 @@ En Tilemap innehåller en Tileset. En Tileset, kan då laddas m.h.a. AssetsManag
 m.h.a. pugixml hos AssetsManager.
 
 2. Skapa en "loadXML" method i AssetsManager
-3. Skapa en Tileset class
 4. Skapa en Tilemap class
 5. Skapa en Building class
