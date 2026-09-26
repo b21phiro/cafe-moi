@@ -12,7 +12,7 @@ int main()
 	CafeMoi::Tileset tileset(assets, "resources/cafemoi-sprite-sheet.xml");
 
 	sf::Sprite sprite1 = tileset.getTile(0);
-	sf::Sprite sprite2 = tileset.getTile(90);
+	sf::Sprite sprite2 = tileset.getTile(1);
 	sprite2.setPosition({ 32.f, 0.f });
 
 	sf::RenderWindow window( sf::VideoMode( { 1280u, 720u } ), "Cafe Moi - v.0.1.0" );
