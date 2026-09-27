@@ -1,5 +1,7 @@
 #include "Tilemap.h"
 #include <iostream>
+
+#include "CSV.h"
 #include "Logger.h"
 #include "pugixml.hpp"
 
@@ -24,10 +26,13 @@ CafeMoi::Tilemap::Tilemap(AssetsManager& assets, const std::filesystem::path& xm
         std::stoi(tilemap.child("tileset").child_value("tilesize")),
         std::stoi(tilemap.child("tileset").child_value("fallbackID")));
 
-    for (pugi::xml_node layer = tilemap.child("layers").child("layer").first_child();
+    for (pugi::xml_node layer = tilemap.child("layers").first_child();
                         layer; layer = layer.next_sibling())
     {
         std::string layerName = layer.child_value("name");
+        CSV csv = CSV(layer.child_value("data"));
+
+
 
     }
 
