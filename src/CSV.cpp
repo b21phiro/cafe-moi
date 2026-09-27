@@ -17,13 +17,11 @@ CafeMoi::CSV::CSV(const std::string& data)
     {
         if (line.empty())
         {
-            std::cout << "Empty line" << std::endl;
-
             continue;
         }
 
         std::stringstream row(line);
-        rows.resize(++rowNumber);
+        dataset.resize(++rowNumber);
         while (getline(row, token, ','))
         {
             // Clean the token first.
@@ -31,16 +29,47 @@ CafeMoi::CSV::CSV(const std::string& data)
 
             if (token.empty())
             {
-                rows.pop_back();
+                dataset.pop_back();
                 rowNumber--;
                 continue;
             }
 
             // Insert token into row.
-            rows[rowNumber - 1].push_back(token);
+            dataset[rowNumber - 1].push_back(token);
+
+            // Stores the number of columns there are in the dataset.
+            // It only takes the first row into account,
+            // so we're assuming it's a square form.
+            if (rowNumber == 1)
+            {
+                columns++;
+            }
+
         }
     }
 
+    // Stores the number of rows there are in the dataset
+    // before exiting the constructor.
+    rows = rowNumber;
 
+}
 
+std::vector<std::vector<std::string>>& CafeMoi::CSV::getDataset()
+{
+    return dataset;
+}
+
+int CafeMoi::CSV::getColumns()
+{
+    return columns;
+}
+
+int CafeMoi::CSV::getRows()
+{
+    return rows;
+}
+
+std::string CafeMoi::CSV::getTokenAt(int row, int column)
+{
+    return dataset[row][column];
 }
