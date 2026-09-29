@@ -1,8 +1,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "AssetsManager.h"
+#include "Camera.h"
 #include "Tilemap.h"
-#include "Tileset.h"
 
 int main()
 {
@@ -11,6 +11,10 @@ int main()
 	assets.loadTexture("sprite-sheet", "resources/cafemoi-sprite-sheet.png");
 
 	CafeMoi::Tilemap tilemap(assets, "resources/building-1.xml");
+
+	CafeMoi::Camera camera(0.f, 0.f, 1280.f, 720.f);
+	camera.setZoom(3.f);
+	camera.setGridCenter(11, 11);
 
 	sf::RenderWindow window( sf::VideoMode( { 1280u, 720u } ), "Cafe Moi - v.0.1.0" );
 
@@ -24,7 +28,10 @@ int main()
 			}
 		}
 
+		camera.update();
+
 		window.clear();
+		window.setView(camera.getView());
 		tilemap.draw(window);
 		window.display();
 

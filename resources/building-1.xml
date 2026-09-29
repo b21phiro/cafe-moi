@@ -45,5 +45,14 @@
                 </data>
             </layer>
         </layers>
+        <objects>
+            <object>
+                <name>Center</name>
+                <position>
+                    <x>11</x>
+                    <y>11</y>
+                </position>
+            </object>
+        </objects>
     </tilemap>
 </building>

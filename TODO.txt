@@ -1,11 +1,5 @@
-- Vart jag lämnade:
+- Jag bygger just nu på en kamera.
 
-Jag håller nu på att göra så att jag ladda in saker med min AssetsManager.
-Just nu behöver jag kunna ladda in XML.
+# Önskan
 
-Sedan, kommer jag skapa en Tilemap, som beskriver formen och lagren inom en Building.
-En Tilemap innehåller en Tileset. En Tileset, kan då laddas m.h.a. AssetsManager, där själva XMLn laddas
-m.h.a. pugixml hos AssetsManager.
-
-4. Skapa en Tilemap class
-5. Skapa en Building class
+- lägga till en grid-helper.
