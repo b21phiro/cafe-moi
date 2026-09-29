@@ -3,6 +3,7 @@
 
 #include "Tileset.h"
 #include <map>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 namespace CafeMoi
 {
@@ -27,7 +28,22 @@ namespace CafeMoi
          */
         explicit Tilemap(AssetsManager& assets, const std::filesystem::path& xmlFile);
 
+        /**
+         * Draws the tilemap to the window.
+         */
+        void draw(sf::RenderWindow& window);
+
     private:
+
+        /**
+         * Number of columns in the tilemap.
+         */
+        int columns;
+
+        /**
+         * Number of rows in the tilemap.
+         */
+        int rows;
 
         /**
          *

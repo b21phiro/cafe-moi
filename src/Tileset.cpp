@@ -3,9 +3,10 @@
 #include "Logger.h"
 #include "pugixml.hpp"
 
-CafeMoi::Tileset::Tileset(sf::Texture& texture, int columns, int rows, int tileSize, int fallbackTileID)
+CafeMoi::Tileset::Tileset(sf::Texture& texture, int columns, int rows, int tileSize, int fallbackTileID, int firstTileID)
 : tileAmount(columns * rows)
 , columns(columns)
+, firstTileID(firstTileID)
 , rows(rows)
 , tileSize(tileSize)
 , fallbackTileID(fallbackTileID)
@@ -14,10 +15,16 @@ CafeMoi::Tileset::Tileset(sf::Texture& texture, int columns, int rows, int tileS
 
     Logger::log("Tileset", "Instance created.\tTiles: " + std::to_string(tileAmount));
 
+    int nextTileID = 0;
     for (int row = 0; row < rows; row++)
     {
         for (int column = 0; column < columns; column++)
         {
+            if (nextTileID++ < firstTileID)
+            {
+                column--;
+                continue;
+            }
             int tileX = column * tileSize;
             int tileY = row    * tileSize;
             sf::Sprite sprite(*texturePtr, sf::IntRect(
@@ -37,6 +44,7 @@ CafeMoi::Tileset::Tileset(AssetsManager& assets, const std::filesystem::path& xm
 , tileSize(0)
 , fallbackTileID(-1)
 , texturePtr(nullptr)
+, firstTileID(1)
 {
 
     pugi::xml_document doc;
@@ -57,12 +65,18 @@ CafeMoi::Tileset::Tileset(AssetsManager& assets, const std::filesystem::path& xm
     rows                                = std::stoi(tilesetNode.child_value("rows"));
     tileSize                            = std::stoi(tilesetNode.child_value("tilesize"));
     tileAmount                          = columns * rows;
-    fallbackTileID                      = std::stoi(tilesetNode.child_value("fallbackID"));
+    fallbackTileID                      = std::stoi(tilesetNode.child_value("fallbackid"));
+    firstTileID                         = std::stoi(tilesetNode.child_value("firsttileid"));
 
+    int nextTileID = 0;
     for (int row = 0; row < rows; row++)
     {
         for (int column = 0; column < columns; column++)
         {
+            if (nextTileID++ < firstTileID)
+            {
+                continue;
+            }
             int tileX = column * tileSize;
             int tileY = row    * tileSize;
             sf::Sprite sprite(*texturePtr, sf::IntRect(
@@ -78,14 +92,21 @@ CafeMoi::Tileset::Tileset(AssetsManager& assets, const std::filesystem::path& xm
 
 sf::Sprite CafeMoi::Tileset::getTile(int id)
 {
-    if (tileAmount == 0 || id > tileAmount || id < 0)
+    int actualID = id - firstTileID;
+    if (tileAmount == 0 || actualID > tileAmount || actualID < 0)
     {
-        Logger::error("Tileset", "Tile ID " + std::to_string(id) + " is out of bounds!");
         if (fallbackTileID == -1)
         {
             throw std::runtime_error("[ Fatal error ] Tileset: Tile is out of bounds.\nGiven tile ID: " + std::to_string(id) + "\nAmount of tiles: " + std::to_string(tileAmount));
         }
         return getTile(fallbackTileID);
     }
-    return tiles[id];
+
+
+    return tiles[actualID];
+}
+
+int CafeMoi::Tileset::getTileSize()
+{
+    return tileSize;
 }

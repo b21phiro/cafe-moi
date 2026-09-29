@@ -25,6 +25,7 @@ int main()
 		}
 
 		window.clear();
+		tilemap.draw(window);
 		window.display();
 
 	}

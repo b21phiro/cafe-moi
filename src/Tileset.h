@@ -34,9 +34,10 @@ namespace CafeMoi
          * @param rows - The number of rows in the tileset.
          * @param tileSize - The size of each tile in the tileset. Defaults to 32.
          * @param fallbackTileID - The ID of the fallback tile to use when an invalid ID is provided. Defaults to -1.
-         * 
+         * @param firstTileID - The first tile ID in this set.
+         *
          */
-        explicit Tileset(sf::Texture& texture, int columns, int rows, int tileSize = 32, int fallbackTileID = -1);
+        explicit Tileset(sf::Texture& texture, int columns, int rows, int tileSize = 32, int fallbackTileID = -1, int firstTileID = 1);
 
         /**
          * 
@@ -60,13 +61,18 @@ namespace CafeMoi
          *
          */
         sf::Sprite getTile(int id);
-        
+
+        /**
+         * Returns the size of the tiles in this tileset.
+         * @return Tilesize
+         */
+        int getTileSize();
 
 
     private:
 
         /**
-         * The amount of tiles within the tileset.
+         * The number of tiles within the tileset.
          */
         int tileAmount;
 
@@ -74,6 +80,12 @@ namespace CafeMoi
          * The number of columns in the tileset.
          */
         int columns;
+
+        /**
+         * The first tile ID in the tileset.
+         * Ignores tiles below this ID.
+         */
+        int firstTileID;
 
         /**
          * The number of rows in the tileset.

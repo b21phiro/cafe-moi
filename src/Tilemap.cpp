@@ -24,16 +24,20 @@ CafeMoi::Tilemap::Tilemap(AssetsManager& assets, const std::filesystem::path& xm
         std::stoi(tilemap.child("tileset").child_value("columns")),
         std::stoi(tilemap.child("tileset").child_value("rows")),
         std::stoi(tilemap.child("tileset").child_value("tilesize")),
-        std::stoi(tilemap.child("tileset").child_value("fallbackID")));
+        std::stoi(tilemap.child("tileset").child_value("fallbackid")),
+        std::stoi(tilemap.child("tileset").child_value("firsttileid")));
 
     for (pugi::xml_node layer = tilemap.child("layers").first_child();
                         layer; layer = layer.next_sibling())
     {
 
         std::string layerName = layer.child_value("name");
-        layerMap[layerName] = std::vector<std::vector<int>>();
+        layerMap[layerName]   = std::vector<std::vector<int>>();
 
-        CSV layerData = CSV(layer.child_value("data"));
+        CSV layerData         = CSV(layer.child_value("data"));
+        columns               = layerData.getColumns();
+        rows                  = layerData.getRows();
+
         for (int row = 0; row < layerData.getRows(); row++)
         {
             layerMap[layerName].resize(row + 1);
@@ -57,4 +61,30 @@ CafeMoi::Tilemap::Tilemap(AssetsManager& assets, const std::filesystem::path& xm
 
     Logger::log("Tilemap", "Instance created from XML file.\tXML-file: " + xmlFile.string());
 
+}
+
+void CafeMoi::Tilemap::draw(sf::RenderWindow& window)
+{
+    for (auto& layer : layerMap)
+    {
+        for (int row = 0; row < rows; row++)
+        {
+            for (int column = 0; column < columns; column++)
+            {
+                int tileID = layer.second[row][column];
+                
+                if (tileID == 0)
+                {
+                    continue;
+                }
+
+                sf::Sprite sprite = tileset->getTile(tileID);
+                sprite.setPosition(sf::Vector2f(
+                    (float)column * (float)tileset->getTileSize(),
+                    (float)row    * (float)tileset->getTileSize()));
+
+                window.draw(sprite);
+            }
+        }
+    }
 }

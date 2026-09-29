@@ -32,9 +32,18 @@ target_link_libraries(${PROJECT_NAME} PRIVATE SFML::Graphics)
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT main)
 
-# Copies ./resource and puts it by the bin
-add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    "${CMAKE_CURRENT_SOURCE_DIR}/resources"
-    "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resources"
+file(GLOB_RECURSE RESOURCE_FILES CONFIGURE_DEPENDS
+        "${CMAKE_CURRENT_SOURCE_DIR}/resources/*"
 )
+
+add_custom_target(update_resources
+        COMMAND ${CMAKE_COMMAND} -E remove_directory
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resources"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/resources"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resources"
+        DEPENDS ${RESOURCE_FILES}
+        COMMENT "Updating resources..."
+)
+
+add_dependencies(${PROJECT_NAME} update_resources)
