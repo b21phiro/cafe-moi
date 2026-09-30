@@ -5,6 +5,8 @@
 #include <sstream>
 
 CafeMoi::CSV::CSV(const std::string& data)
+: columns(0)
+, rows(0)
 {
 
     std::stringstream stream(data);
