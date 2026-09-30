@@ -22,6 +22,7 @@ namespace CafeMoi
          * Ex: { 0; 0 } multiplied by the tile size (32).
          */
         void setGridCenter(int x, int y);
+        void setGridCenter(sf::Vector2i position);
 
         void update();
 

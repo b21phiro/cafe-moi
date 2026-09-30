@@ -24,7 +24,8 @@ add_executable(${PROJECT_NAME}
         src/pugixml.cpp
         src/Tilemap.cpp
         src/CSV.cpp
-        src/Camera.cpp)
+        src/Camera.cpp
+        src/Building.cpp)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_link_libraries(${PROJECT_NAME} PRIVATE SFML::Graphics)

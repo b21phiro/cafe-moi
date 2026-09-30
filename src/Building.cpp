@@ -25,12 +25,15 @@ CafeMoi::Building::Building(AssetsManager& assets, std::filesystem::path xmlFile
     name = doc.child("building").child_value("name");
     tilemap = std::make_unique<Tilemap>(assets, xmlFile);
 
-    
-
     Logger::log("Building", "Created a new building with name " + name);
 }
 
 void CafeMoi::Building::draw(sf::RenderWindow& window)
 {
     tilemap->draw(window);
+}
+
+sf::Vector2i CafeMoi::Building::getCenter()
+{
+    return tilemap->center;
 }

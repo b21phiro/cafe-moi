@@ -50,6 +50,11 @@ void CafeMoi::Camera::setGridCenter(int x, int y)
     const float tileSize = 32.f;
     const float fX = static_cast<float>(x);
     const float fY = static_cast<float>(y);
-    center = sf::Vector2f(fX * tileSize, fY * tileSize);
+    center = sf::Vector2f(fX * tileSize + (tileSize * 0.5f), fY * tileSize + (tileSize * 0.5f));
     needsUpdate = true;
+}
+
+void CafeMoi::Camera::setGridCenter(sf::Vector2i position)
+{
+    setGridCenter(position.x, position.y);
 }

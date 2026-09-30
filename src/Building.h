@@ -19,6 +19,8 @@ namespace CafeMoi
 
         void draw(sf::RenderWindow& window);
 
+        sf::Vector2i getCenter();
+
     private:
 
         std::unique_ptr<Tilemap> tilemap;

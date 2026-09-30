@@ -38,9 +38,11 @@ CafeMoi::Tilemap::Tilemap(AssetsManager& assets, const std::filesystem::path& xm
         columns               = layerData.getColumns();
         rows                  = layerData.getRows();
 
+        layerMap[layerName].resize(rows);
+
         for (int row = 0; row < layerData.getRows(); row++)
         {
-            layerMap[layerName].resize(row + 1);
+
             for (int col = 0; col < layerData.getColumns(); col++)
             {
 
@@ -56,6 +58,20 @@ CafeMoi::Tilemap::Tilemap(AssetsManager& assets, const std::filesystem::path& xm
                 layerMap[layerName][row].push_back(std::stoi(token));
 
             }
+
+        }
+    }
+
+    for (pugi::xml_node object = tilemap.child("objects").first_child();
+                        object; object = object.next_sibling("object"))
+    {
+        std::string objectName = object.child_value("name");
+        if (objectName == "Center")
+        {
+            center = sf::Vector2i(
+                std::stoi(object.child("position").child_value("x")),
+                std::stoi(object.child("position").child_value("y"))
+            );
         }
     }
 
@@ -72,7 +88,7 @@ void CafeMoi::Tilemap::draw(sf::RenderWindow& window)
             for (int column = 0; column < columns; column++)
             {
                 int tileID = layer.second[row][column];
-                
+
                 if (tileID == 0)
                 {
                     continue;

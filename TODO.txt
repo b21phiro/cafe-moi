@@ -1,4 +1,4 @@
-- Jag bygger just nu på en kamera.
+- Jag håller nu på med att implementera objektlagret i byggnaden.
 
 # Önskan
 

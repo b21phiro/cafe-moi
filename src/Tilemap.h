@@ -20,6 +20,22 @@ namespace CafeMoi
 
         /**
          *
+         * The center coordinate of the tilemap.
+         *
+         * ```xml
+         * <object>
+         *       <name>Center</name>
+         *       <position>
+         *           <x>0</x>
+         *           <y>0</y>
+         *       </position>
+         *   </object>
+         * ```
+         */
+        sf::Vector2i center;
+
+        /**
+         *
          * Creates a new tilemap using the XML-file.
          *
          * @param assets - The assets manager used for loading textures for the tileset.
@@ -68,8 +84,6 @@ namespace CafeMoi
          *
          */
         std::map<std::string, std::vector<std::vector<int>>> layerMap;
-
-
 
     };
 }
