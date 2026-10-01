@@ -1,10 +1,8 @@
 #include "Tilemap.h"
 #include <iostream>
-
 #include "CSV.h"
 #include "Logger.h"
 #include "pugixml.hpp"
-
 
 CafeMoi::Tilemap::Tilemap(AssetsManager& assets, const std::filesystem::path& xmlFile)
 {
@@ -81,26 +79,31 @@ CafeMoi::Tilemap::Tilemap(AssetsManager& assets, const std::filesystem::path& xm
 
 void CafeMoi::Tilemap::draw(sf::RenderWindow& window)
 {
-    for (auto& layer : layerMap)
+    drawLayer(window, "Terrain");
+    drawLayer(window, "Structure");
+}
+
+void CafeMoi::Tilemap::drawLayer(sf::RenderWindow& window, std::string name)
+{
+    auto& layer = layerMap[name];
+    for (int row = 0; row < rows; row++)
     {
-        for (int row = 0; row < rows; row++)
+        for (int column = 0; column < columns; column++)
         {
-            for (int column = 0; column < columns; column++)
+            int tileID = layer[row][column];
+
+            if (tileID == 0)
             {
-                int tileID = layer.second[row][column];
-
-                if (tileID == 0)
-                {
-                    continue;
-                }
-
-                sf::Sprite sprite = tileset->getTile(tileID);
-                sprite.setPosition(sf::Vector2f(
-                    (float)column * (float)tileset->getTileSize(),
-                    (float)row    * (float)tileset->getTileSize()));
-
-                window.draw(sprite);
+                continue;
             }
+
+            sf::Sprite sprite = tileset->getTile(tileID);
+            sprite.setPosition(sf::Vector2f(
+                (float)column * (float)tileset->getTileSize(),
+                (float)row    * (float)tileset->getTileSize()));
+
+            window.draw(sprite);
+
         }
     }
 }

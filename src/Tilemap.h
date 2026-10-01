@@ -85,6 +85,16 @@ namespace CafeMoi
          */
         std::map<std::string, std::vector<std::vector<int>>> layerMap;
 
+        /**
+         *
+         * Draws a layer individually
+         *
+         * @param window - The window to draw on.
+         * @param layer - Name of the layer.
+         *
+         */
+        void drawLayer(sf::RenderWindow& window, std::string name);
+
     };
 }
 
