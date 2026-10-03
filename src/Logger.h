@@ -10,9 +10,9 @@ namespace CafeMoi
     {
     public:
 
-        static void log(const std::string& context, const std::string& message);
+        static void log(std::string context, std::string message);
 
-        static void error(const std::string& context, const std::string& message);
+        static void error(std::string context, std::string message);
 
     };
 }

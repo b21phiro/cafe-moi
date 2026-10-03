@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-void CafeMoi::Logger::log(const std::string& context, const std::string& message)
+void CafeMoi::Logger::log(std::string context, std::string message)
 {
-    std::cout << "[  Log  ] "<< context << "\t" << message << "\n";
+    std::cout << "[  Log  ]\t" << context << "\t\t" << message << "\n";
 }
 
-void CafeMoi::Logger::error(const std::string& context, const std::string& message)
+void CafeMoi::Logger::error(std::string context, std::string message)
 {
-    std::cerr << "[ Error ] "<< context << "\t" << message << "\n";
+    std::cerr << "[ Error ]\t" << context << "\t\t" << message << "\n";
 }
