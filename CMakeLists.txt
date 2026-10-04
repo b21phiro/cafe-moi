@@ -29,6 +29,7 @@ add_executable(${PROJECT_NAME}
         src/EntityManager.cpp
         src/ComponentManager.cpp
         src/RenderSystem.cpp
+        src/World.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

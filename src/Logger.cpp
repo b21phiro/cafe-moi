@@ -4,10 +4,10 @@
 
 void CafeMoi::Logger::log(std::string context, std::string message)
 {
-    std::cout << "[  Log  ]\t" << context << "\t\t" << message << "\n";
+    std::cout << "[  Log  ] " << context << ": " << message << "\n";
 }
 
 void CafeMoi::Logger::error(std::string context, std::string message)
 {
-    std::cerr << "[ Error ]\t" << context << "\t\t" << message << "\n";
+    std::cerr << "[  Error  ] " << context << ": " << message << "\n";
 }

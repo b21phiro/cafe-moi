@@ -2,9 +2,8 @@
 #include "AssetsManager.h"
 #include "Building.h"
 #include "Camera.h"
-#include "ComponentManager.h"
-#include "EntityManager.h"
 #include "RenderSystem.h"
+#include "World.h"
 
 int main()
 {
@@ -14,16 +13,7 @@ int main()
 
 	CafeMoi::Building building(assets, "resources/building-1.xml");
 
-	CafeMoi::ComponentManager components;
-
-	CafeMoi::EntityManager entities;
-
-	const int player = entities.createEntity();
-	components.registerEntity();
-	components.addSpriteComponent(player, sf::Sprite(assets.getTexture("sprite-sheet"), sf::IntRect({ 0 * 32, 4 * 32 }, { 32, 35 })));
-	components.addPositionComponent(player, sf::Vector2f(
-		(float)building.getCenter().x * 32.f,
-		(float)building.getCenter().y * 32.f));
+	CafeMoi::World world(assets, building);
 
 	CafeMoi::RenderSystem renderSystem;
 
@@ -48,7 +38,7 @@ int main()
 		window.clear();
 		window.setView(camera.getView());
 		building.draw(window);
-		renderSystem.process(window, entities, components.getSpriteComponents(), components.getPositionComponents());
+		renderSystem.process(window, world.getEntityManager(), world.getComponentManager().getSpriteComponents(), world.getComponentManager().getPositionComponents());
 		window.display();
 
 	}
