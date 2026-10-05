@@ -58,3 +58,4 @@ void CafeMoi::Camera::setGridCenter(sf::Vector2i position)
 {
     setGridCenter(position.x, position.y);
 }
+

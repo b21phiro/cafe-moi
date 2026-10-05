@@ -1,7 +1,9 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "AssetsManager.h"
 #include "Building.h"
 #include "Camera.h"
+#include "InputManager.h"
 #include "RenderSystem.h"
 #include "World.h"
 
@@ -21,6 +23,8 @@ int main()
 	camera.setZoom(3.f);
 	camera.setGridCenter(building.getCenter());
 
+	CafeMoi::InputManager inputManager;
+
 	sf::RenderWindow window( sf::VideoMode( { 1280u, 720u } ), "Cafe Moi - v.0.1.0" );
 
 	while ( window.isOpen() )
@@ -33,6 +37,7 @@ int main()
 			}
 		}
 
+		inputManager.update();
 		camera.update();
 
 		window.clear();
