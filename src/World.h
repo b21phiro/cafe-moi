@@ -20,6 +20,8 @@ namespace CafeMoi
 
         sf::Vector2f& addPositionComponent(int entity, sf::Vector2f&& position);
 
+        sf::Vector2f& addSpeedComponent(int entity, sf::Vector2f&& speed);
+
         EntityManager& getEntityManager();
 
         ComponentManager& getComponentManager();

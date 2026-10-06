@@ -1,18 +1,20 @@
 #include "ComponentManager.h"
-
 #include "Logger.h"
 
 CafeMoi::ComponentManager::ComponentManager()
-{}
+{
+    Logger::log("ComponentManager", "Instance created");
+}
 
 void CafeMoi::ComponentManager::registerEntity()
 {
     spriteComponents.emplace_back(nullptr);
     positionComponents.emplace_back(nullptr);
+    speedComponents.emplace_back(nullptr);
     Logger::log("ComponentManager", "Entity registered.");
 }
 
-/// Sprite Component
+// Sprite Component
 
 sf::Sprite& CafeMoi::ComponentManager::addSpriteComponent(int entity, sf::Sprite&& sprite)
 {
@@ -26,9 +28,9 @@ std::vector<std::unique_ptr<sf::Sprite>>& CafeMoi::ComponentManager::getSpriteCo
     return spriteComponents;
 }
 
-/// Position component
+// Position component
 
-sf::Vector2f &CafeMoi::ComponentManager::addPositionComponent(int entity, sf::Vector2f&& position)
+sf::Vector2f& CafeMoi::ComponentManager::addPositionComponent(int entity, sf::Vector2f&& position)
 {
     positionComponents[entity] = std::make_unique<sf::Vector2f>(position);
     Logger::log("ComponentManager", "Added position component to entity: " + std::to_string(entity));
@@ -38,4 +40,18 @@ sf::Vector2f &CafeMoi::ComponentManager::addPositionComponent(int entity, sf::Ve
 std::vector<std::unique_ptr<sf::Vector2f> > &CafeMoi::ComponentManager::getPositionComponents()
 {
     return positionComponents;
+}
+
+// Speed component
+
+sf::Vector2f& CafeMoi::ComponentManager::addSpeedComponent(int entity, sf::Vector2f&& speed)
+{
+    speedComponents[entity] = std::make_unique<sf::Vector2f>(speed);
+    Logger::log("ComponentManager", "Added speed component to entity: " + std::to_string(entity));
+    return *speedComponents[entity];
+}
+
+std::vector<std::unique_ptr<sf::Vector2f> > &CafeMoi::ComponentManager::getSpeedComponents()
+{
+    return speedComponents;
 }

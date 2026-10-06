@@ -32,6 +32,8 @@ add_executable(${PROJECT_NAME}
         src/World.cpp
         src/InputManager.h
         src/InputManager.cpp
+        src/MoveSystem.h
+        src/MoveSystem.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

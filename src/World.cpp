@@ -8,10 +8,10 @@ CafeMoi::World::World(AssetsManager& assets, Building& building)
     Logger::log("World", "Created instance");
 
     const int player = createEntity();
+    entityManager.setTag(player, "Player");
     addSpriteComponent(player, sf::Sprite(assets.getTexture("sprite-sheet"), sf::IntRect({ 0 * 32, 4 * 32 }, { 32, 35 })));
-    addPositionComponent(player, sf::Vector2f(
-        (float)building.getCenter().x * 32.f,
-        (float)building.getCenter().y * 32.f));
+    addSpeedComponent(player, sf::Vector2f(0.f, 0.f));
+    addPositionComponent(player, sf::Vector2f((float)building.getCenter().x * 32.f, (float)building.getCenter().y * 32.f));
 
 }
 
@@ -33,6 +33,12 @@ sf::Vector2f &CafeMoi::World::addPositionComponent(const int entity, sf::Vector2
 {
     Logger::log("World", "Added position component to entity " + std::to_string(entity));
     return componentManager.addPositionComponent(entity, std::move(position));
+}
+
+sf::Vector2f &CafeMoi::World::addSpeedComponent(const int entity, sf::Vector2f&& speed)
+{
+    Logger::log("World", "Added speed component to entity " + std::to_string(entity));
+    return componentManager.addSpeedComponent(entity, std::move(speed));
 }
 
 CafeMoi::EntityManager& CafeMoi::World::getEntityManager()
