@@ -30,10 +30,9 @@ add_executable(${PROJECT_NAME}
         src/ComponentManager.cpp
         src/RenderSystem.cpp
         src/World.cpp
-        src/InputManager.h
         src/InputManager.cpp
-        src/MoveSystem.h
         src/MoveSystem.cpp
+        src/CafeMoi.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

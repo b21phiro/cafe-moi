@@ -1,5 +1,0 @@
-- Jag håller nu på med att implementera objektlagret i byggnaden.
-
-# Önskan
-
-- lägga till en grid-helper.
