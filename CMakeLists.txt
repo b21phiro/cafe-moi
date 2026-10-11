@@ -33,6 +33,8 @@ add_executable(${PROJECT_NAME}
         src/InputManager.cpp
         src/MoveSystem.cpp
         src/CafeMoi.cpp
+        src/ui/UiManager.cpp
+        src/ui/Button.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

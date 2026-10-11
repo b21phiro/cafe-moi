@@ -4,6 +4,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "AssetsManager.h"
 #include "InputManager.h"
+#include "ui/UiManager.h"
 
 namespace CafeMoi
 {
@@ -21,9 +22,18 @@ namespace CafeMoi
 
         AssetsManager assetsManager;
         InputManager inputManager;
+        UiManager uiManager;
+
+        
 
         void loadContent();
         void exit();
+
+        void initInGameUI();
+
+        void enableBuildMode();
+
+
 
     };
 }
