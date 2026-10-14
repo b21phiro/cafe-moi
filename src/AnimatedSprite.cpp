@@ -32,7 +32,6 @@ void CafeMoi::AnimatedSprite::setAnimation(const std::string& name)
 
 void CafeMoi::AnimatedSprite::update(const sf::Time& timeElapsed)
 {
-    std::cout << elapsedTime << std::endl;
     const auto& frame = getCurrentFrame();
     setTextureRect(frame);
     if (const auto& frameDuration = getCurrentFrameTiming(); elapsedTime >= frameDuration)
