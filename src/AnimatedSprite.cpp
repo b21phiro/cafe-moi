@@ -1,7 +1,5 @@
 #include "AnimatedSprite.h"
 
-#include <iostream>
-
 #include "Logger.h"
 
 CafeMoi::AnimatedSprite::AnimatedSprite(
@@ -10,7 +8,7 @@ CafeMoi::AnimatedSprite::AnimatedSprite(
     std::map<std::string, std::vector<int>>&& timings
 )
     : Sprite(texture, {{0, 0}, {0,0}})
-    , elapsedTime(0)
+    , elapsedTime(sf::Time::Zero)
     , animations(std::move(animations))
     , timings(std::move(timings))
     , animationFrameIndexMap({})
@@ -20,6 +18,7 @@ CafeMoi::AnimatedSprite::AnimatedSprite(
 
 void CafeMoi::AnimatedSprite::setAnimation(const std::string& name)
 {
+    if (currentAnimation == name) return;
     if (animations.find(name) == animations.end())
     {
         Logger::error("AnimatedSprite : setAnimation", "There\'s no animation registered with the name \""+name+"\"");
@@ -32,14 +31,15 @@ void CafeMoi::AnimatedSprite::setAnimation(const std::string& name)
 
 void CafeMoi::AnimatedSprite::update(const sf::Time& timeElapsed)
 {
-    const auto& frame = getCurrentFrame();
-    setTextureRect(frame);
-    if (const auto& frameDuration = getCurrentFrameTiming(); elapsedTime >= frameDuration)
+    elapsedTime += timeElapsed;
+
+    while (elapsedTime >= getCurrentFrameTiming())
     {
+        elapsedTime -= getCurrentFrameTiming();
         nextFrame();
-        elapsedTime = 0;
     }
-    elapsedTime += timeElapsed.asMilliseconds();
+
+    setTextureRect(getCurrentFrame());
 }
 
 sf::IntRect& CafeMoi::AnimatedSprite::getCurrentFrame()
@@ -61,10 +61,10 @@ void CafeMoi::AnimatedSprite::nextFrame()
     }
 }
 
-int CafeMoi::AnimatedSprite::getCurrentFrameTiming()
+sf::Time CafeMoi::AnimatedSprite::getCurrentFrameTiming()
 {
     const int index = animationFrameIndexMap[currentAnimation];
-    return timings[currentAnimation][index];
+    return sf::milliseconds(timings[currentAnimation][index]);
 }
 
 void CafeMoi::AnimatedSprite::resetCurrentAnimation()

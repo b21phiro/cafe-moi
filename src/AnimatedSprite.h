@@ -26,7 +26,7 @@ namespace CafeMoi
 
     private:
 
-        int elapsedTime;
+        sf::Time elapsedTime;
 
         std::string currentAnimation;
         std::map<std::string, std::vector<sf::IntRect>> animations;
@@ -36,7 +36,7 @@ namespace CafeMoi
         std::map<std::string, int> animationFrameIndexMap;
 
         sf::IntRect& getCurrentFrame();
-        int getCurrentFrameTiming();
+        sf::Time getCurrentFrameTiming();
 
         void nextFrame();
 

@@ -11,15 +11,22 @@ CafeMoi::World::World(AssetsManager& assets, Building& building)
 
     const int player = createEntity();
     entityManager.setTag(player, "Player");
-    addAnimatedSpriteComponent(player, { assets.getTexture("sprite-sheet"), {
+    auto& animation = addAnimatedSpriteComponent(player, { assets.getTexture("sprite-sheet"), {
         {
             "idle-right", {{{ 0, 128 }, { 32, 35 }}, {{ 32, 128 }, { 32, 35 }}}
+        },
+        {
+            "walk-right", {{{ 0, 128 }, { 32, 35 }}, {{ 160, 128 }, { 32, 35 }}, {{ 0, 128 }, { 32, 35 }}, {{ 192, 128 }, { 32, 35 }}}
         }
     }, {
         {
-            "idle-right", { 350, 20 }
+            "idle-right", { 3500, 200 }
+        },
+        {
+            "walk-right", { 200, 200, 200, 200 }
         }
     }});
+    //animation.setAnimation("walk-right");
     addSpeedComponent(player, sf::Vector2f(0.f, 0.f));
     addPositionComponent(player, sf::Vector2f((float)building.getCenter().x * 32.f, (float)building.getCenter().y * 32.f));
 

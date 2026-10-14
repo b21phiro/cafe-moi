@@ -32,8 +32,8 @@ void CafeMoi::RenderSystem::process(
         if (sprite) window.draw(*sprite);
         else if (animatedSprite)
         {
-            window.draw(*animatedSprite);
             animatedSprite->update(timeElapsed);
+            window.draw(*animatedSprite);
         }
 
     }
