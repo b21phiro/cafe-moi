@@ -9,6 +9,7 @@ CafeMoi::ComponentManager::ComponentManager()
 void CafeMoi::ComponentManager::registerEntity()
 {
     spriteComponents.emplace_back(nullptr);
+    animatedSpriteComponents.emplace_back(nullptr);
     positionComponents.emplace_back(nullptr);
     speedComponents.emplace_back(nullptr);
     Logger::log("ComponentManager", "Entity registered.");
@@ -27,6 +28,21 @@ std::vector<std::unique_ptr<sf::Sprite>>& CafeMoi::ComponentManager::getSpriteCo
 {
     return spriteComponents;
 }
+
+// Animated sprite component
+
+CafeMoi::AnimatedSprite& CafeMoi::ComponentManager::addAnimatedSpriteComponent(int entity, AnimatedSprite&& animatedSprite)
+{
+    animatedSpriteComponents[entity] = std::make_unique<AnimatedSprite>(std::move(animatedSprite));
+    Logger::log("ComponentManager", "Added animated sprite component to entity: " + std::to_string(entity));
+    return *animatedSpriteComponents[entity];
+}
+
+std::vector<std::unique_ptr<CafeMoi::AnimatedSprite>>& CafeMoi::ComponentManager::getAnimatedSpriteComponents()
+{
+    return animatedSpriteComponents;
+}
+
 
 // Position component
 

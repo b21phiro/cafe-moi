@@ -92,7 +92,7 @@ void CafeMoi::CafeMoi::run()
         building.draw(window);
 
         // Draws entities.
-        renderSystem.process(window, world.getEntityManager(), world.getComponentManager().getSpriteComponents(), world.getComponentManager().getPositionComponents());
+        renderSystem.process(window, timeElapsed, world.getEntityManager(), world.getComponentManager());
 
         // Finally renders on the screen.
         window.display();

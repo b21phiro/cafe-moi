@@ -4,7 +4,7 @@
     <tilemap>
         <tileset>
             <image>
-                <source>resources/cafemoi-sprite-sheet.png</source>
+                <source>resources/sprite-sheet.png</source>
                 <name>sprite-sheet</name>
             </image>
             <columns>32</columns>

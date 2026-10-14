@@ -1,7 +1,9 @@
 #include "World.h"
-
 #include "Building.h"
 #include "Logger.h"
+#include <map>
+#include <utility>
+#include <vector>
 
 CafeMoi::World::World(AssetsManager& assets, Building& building)
 {
@@ -9,7 +11,15 @@ CafeMoi::World::World(AssetsManager& assets, Building& building)
 
     const int player = createEntity();
     entityManager.setTag(player, "Player");
-    addSpriteComponent(player, sf::Sprite(assets.getTexture("sprite-sheet"), sf::IntRect({ 0 * 32, 4 * 32 }, { 32, 35 })));
+    addAnimatedSpriteComponent(player, { assets.getTexture("sprite-sheet"), {
+        {
+            "idle-right", {{{ 0, 128 }, { 32, 35 }}, {{ 32, 128 }, { 32, 35 }}}
+        }
+    }, {
+        {
+            "idle-right", { 350, 20 }
+        }
+    }});
     addSpeedComponent(player, sf::Vector2f(0.f, 0.f));
     addPositionComponent(player, sf::Vector2f((float)building.getCenter().x * 32.f, (float)building.getCenter().y * 32.f));
 
@@ -27,6 +37,12 @@ sf::Sprite& CafeMoi::World::addSpriteComponent(const int entity, sf::Sprite&& sp
 {
     Logger::log("World", "Added sprite component to entity " + std::to_string(entity));
     return componentManager.addSpriteComponent(entity, std::move(sprite));
+}
+
+CafeMoi::AnimatedSprite& CafeMoi::World::addAnimatedSpriteComponent(const int entity, AnimatedSprite&& animatedSprite)
+{
+    Logger::log("World", "Added animated sprite component to entity " + std::to_string(entity));
+    return componentManager.addAnimatedSpriteComponent(entity, std::move(animatedSprite));
 }
 
 sf::Vector2f &CafeMoi::World::addPositionComponent(const int entity, sf::Vector2f&& position)
