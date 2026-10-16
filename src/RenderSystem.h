@@ -17,7 +17,7 @@ namespace CafeMoi
             sf::RenderWindow& window,
             const sf::Time& timeElapsed,
             EntityManager& entities,
-            ComponentManager& components
+            ComponentManager& componentManager
         );
 
     };

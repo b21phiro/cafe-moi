@@ -1,13 +1,14 @@
-#include "AnimatedSprite.h"
+#include "AnimatedSpriteComponent.h"
+#include "../Logger.h"
 
-#include "Logger.h"
-
-CafeMoi::AnimatedSprite::AnimatedSprite(
-    const sf::Texture& texture,
+CafeMoi::AnimatedSpriteComponent::AnimatedSpriteComponent(
+    const int entity,
+    sf::Sprite&& sprite,
     std::map<std::string, std::vector<sf::IntRect>>&& animations,
     std::map<std::string, std::vector<int>>&& timings
 )
-    : Sprite(texture, {{0, 0}, {0,0}})
+    : Component(entity)
+    , sprite(sprite)
     , elapsedTime(sf::Time::Zero)
     , animations(std::move(animations))
     , timings(std::move(timings))
@@ -16,7 +17,7 @@ CafeMoi::AnimatedSprite::AnimatedSprite(
     setAnimation(this->animations.begin()->first);
 }
 
-void CafeMoi::AnimatedSprite::setAnimation(const std::string& name)
+void CafeMoi::AnimatedSpriteComponent::setAnimation(const std::string& name)
 {
     if (currentAnimation == name) return;
     if (animations.find(name) == animations.end())
@@ -29,7 +30,7 @@ void CafeMoi::AnimatedSprite::setAnimation(const std::string& name)
     animationFrameIndexMap[name] = 0;
 }
 
-void CafeMoi::AnimatedSprite::update(const sf::Time& timeElapsed)
+void CafeMoi::AnimatedSpriteComponent::update(const sf::Time& timeElapsed)
 {
     elapsedTime += timeElapsed;
 
@@ -39,17 +40,17 @@ void CafeMoi::AnimatedSprite::update(const sf::Time& timeElapsed)
         nextFrame();
     }
 
-    setTextureRect(getCurrentFrame());
+    sprite.setTextureRect(getCurrentFrame());
 }
 
-sf::IntRect& CafeMoi::AnimatedSprite::getCurrentFrame()
+sf::IntRect& CafeMoi::AnimatedSpriteComponent::getCurrentFrame()
 {
     const int index = animationFrameIndexMap[currentAnimation];
     auto& frame = animations[currentAnimation][index];
     return frame;
 }
 
-void CafeMoi::AnimatedSprite::nextFrame()
+void CafeMoi::AnimatedSpriteComponent::nextFrame()
 {
     if (const int index = animationFrameIndexMap[currentAnimation];
         index >= animations[currentAnimation].size() - 1)
@@ -61,13 +62,13 @@ void CafeMoi::AnimatedSprite::nextFrame()
     }
 }
 
-sf::Time CafeMoi::AnimatedSprite::getCurrentFrameTiming()
+sf::Time CafeMoi::AnimatedSpriteComponent::getCurrentFrameTiming()
 {
     const int index = animationFrameIndexMap[currentAnimation];
     return sf::milliseconds(timings[currentAnimation][index]);
 }
 
-void CafeMoi::AnimatedSprite::resetCurrentAnimation()
+void CafeMoi::AnimatedSpriteComponent::resetCurrentAnimation()
 {
     if (currentAnimation.empty()) return;
     animationFrameIndexMap[currentAnimation] = 0;

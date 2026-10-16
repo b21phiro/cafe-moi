@@ -67,13 +67,7 @@ void CafeMoi::CafeMoi::run()
 
         uiManager.update();
 
-        moveSystem.process(
-            timeElapsed,
-            inputManager,
-            world.getEntityManager(),
-            world.getComponentManager().getSpeedComponents(),
-            world.getComponentManager().getPositionComponents()
-        );
+        moveSystem.process(timeElapsed, inputManager, world.getEntityManager(), world.getComponentManager());
 
         camera.update();
 

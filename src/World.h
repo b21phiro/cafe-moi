@@ -16,22 +16,12 @@ namespace CafeMoi
 
         int createEntity();
 
-        sf::Sprite& addSpriteComponent(int entity, sf::Sprite&& sprite);
-
-        AnimatedSprite& addAnimatedSpriteComponent(int entity, AnimatedSprite&& animatedSprite);
-
-        sf::Vector2f& addPositionComponent(int entity, sf::Vector2f&& position);
-
-        sf::Vector2f& addSpeedComponent(int entity, sf::Vector2f&& speed);
-
         EntityManager& getEntityManager();
-
         ComponentManager& getComponentManager();
 
     private:
 
         EntityManager entityManager;
-
         ComponentManager componentManager;
 
     };

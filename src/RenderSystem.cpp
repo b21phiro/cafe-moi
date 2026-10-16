@@ -1,5 +1,8 @@
 #include "RenderSystem.h"
 #include "Logger.h"
+#include "components/AnimatedSpriteComponent.h"
+#include "components/PositionComponent.h"
+#include "components/SpriteComponent.h"
 
 CafeMoi::RenderSystem::RenderSystem()
 {
@@ -10,31 +13,34 @@ void CafeMoi::RenderSystem::process(
     sf::RenderWindow& window,
     const sf::Time& timeElapsed,
     EntityManager& entities,
-    ComponentManager& components
+    ComponentManager& componentManager
 )
 {
-    const auto& spriteComponents = components.getSpriteComponents();
-    const auto& animatedSpriteComponents = components.getAnimatedSpriteComponents();
-    const auto& positionComponents = components.getPositionComponents();
 
     for (const auto& entity : entities.getActiveEntities())
     {
-        auto& sprite = spriteComponents[entity];
-        auto& animatedSprite = animatedSpriteComponents[entity];
-        if (sprite == nullptr && animatedSprite == nullptr) continue;
 
-        if (auto& position = positionComponents[entity]; position != nullptr)
+        const bool hasPosition = componentManager.has<PositionComponent>(entity);
+
+        if (componentManager.has<SpriteComponent>(entity))
         {
-            if (sprite) sprite->setPosition(*position);
-            else if (animatedSprite) animatedSprite->setPosition(*position);
-        }
-
-        if (sprite) window.draw(*sprite);
-        else if (animatedSprite)
+            auto& sprite = componentManager.get<SpriteComponent>(entity);
+            if (hasPosition)
+            {
+                const auto& position = componentManager.get<PositionComponent>(entity);
+                sprite.sprite.setPosition(position.value);
+            }
+            window.draw(sprite.sprite);
+        } else if (componentManager.has<AnimatedSpriteComponent>(entity))
         {
-            animatedSprite->update(timeElapsed);
-            window.draw(*animatedSprite);
+            auto& animatedSprite = componentManager.get<AnimatedSpriteComponent>(entity);
+            if (hasPosition)
+            {
+                const auto& position = componentManager.get<PositionComponent>(entity);
+                animatedSprite.sprite.setPosition(position.value);
+            }
+            window.draw(animatedSprite.sprite);
+            animatedSprite.update(timeElapsed);
         }
-
     }
 }

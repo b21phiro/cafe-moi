@@ -3,6 +3,9 @@
 #include <iostream>
 
 #include "Logger.h"
+#include "components/AnimatedSpriteComponent.h"
+#include "components/PositionComponent.h"
+#include "components/SpeedComponent.h"
 
 CafeMoi::MoveSystem::MoveSystem()
 {
@@ -13,9 +16,7 @@ void CafeMoi::MoveSystem::process(
     sf::Time& timeElapsed,
     InputManager& inputManager,
     EntityManager& entityManager,
-    std::vector<std::unique_ptr<sf::Vector2f>>& speedComponents,
-    std::vector<std::unique_ptr<sf::Vector2f>>& positionComponents
-)
+    ComponentManager& componentManager)
 {
 
     bool isPlayerMovingRight = false;
@@ -42,32 +43,48 @@ void CafeMoi::MoveSystem::process(
 
     for (const int player : entityManager.getEntitiesWithTag("Player"))
     {
-        auto& playerSpeed = speedComponents[player];
-        auto& playerPosition = positionComponents[player];
-        if (playerSpeed == nullptr || playerPosition == nullptr) continue;
 
-        playerSpeed->x = 0;
-        playerSpeed->y = 0;
+        if (!componentManager.has<SpeedComponent>(player) ||
+            !componentManager.has<PositionComponent>(player) ||
+            !componentManager.has<AnimatedSpriteComponent>(player)) continue;
+
+        auto& speed = componentManager.get<SpeedComponent>(player);
+        auto& position = componentManager.get<PositionComponent>(player);
+        auto& animatedSprite = componentManager.get<AnimatedSpriteComponent>(player);
+
+        if (!isPlayerMovingRight && speed.value.x > 0)
+        {
+            animatedSprite.setAnimation("idle-right");
+        }
+        if (!isPlayerMovingLeft && speed.value.x < 0)
+        {
+            animatedSprite.setAnimation("idle-left");
+        }
+
+        speed.value.x = 0;
+        speed.value.y = 0;
 
         if (isPlayerMovingRight)
         {
-            playerSpeed->x = 1;
+            speed.value.x = 1;
+            animatedSprite.setAnimation("move-right");
         }
         if (isPlayerMovingLeft)
         {
-            playerSpeed->x = -1;
+            speed.value.x = -1;
+            animatedSprite.setAnimation("move-left");
         }
         if (isPlayerMovingDown)
         {
-            playerSpeed->y = 1;
+            speed.value.y = 1;
         }
         if (isPlayerMovingUp)
         {
-            playerSpeed->y = -1;
+            speed.value.y = -1;
         }
 
-        playerPosition->x += playerSpeed->x * timeElapsed.asSeconds() * 100.f;
-        playerPosition->y += playerSpeed->y * timeElapsed.asSeconds() * 100.f;
+        position.value.x += speed.value.x * timeElapsed.asSeconds() * 100.f;
+        position.value.y += speed.value.y * timeElapsed.asSeconds() * 100.f;
 
     }
 
