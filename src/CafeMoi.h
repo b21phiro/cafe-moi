@@ -3,7 +3,10 @@
 
 class CafeMoi
 {
-    
+public:
+
+    void run();
+
 };
 
 #endif
