@@ -20,7 +20,7 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/CafeMoi.cpp)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
-target_link_libraries(${PROJECT_NAME} PRIVATE SFML::Graphics ${PHRO_LIBRARY})
+target_link_libraries(${PROJECT_NAME} PRIVATE SFML::Graphics)
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT main)
 
@@ -37,4 +37,6 @@ FetchContent_MakeAvailable(Catch2)
 add_executable(${PROJECT_NAME}-tests tests/test_main.cpp
         src/CafeMoi.cpp)
 
-target_link_libraries(${PROJECT_NAME}-tests PRIVATE Catch2::Catch2WithMain)
+target_link_libraries(${PROJECT_NAME}-tests PRIVATE
+        Catch2::Catch2WithMain
+        SFML::Graphics)
