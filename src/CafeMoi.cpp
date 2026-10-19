@@ -2,6 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include <optional>
 
+CafeMoi::CafeMoi()
+    : current_state("MainMenu")
+{}
+
 void CafeMoi::run()
 {
 
@@ -22,4 +26,14 @@ void CafeMoi::run()
         window.display();
     }
 
+}
+
+std::string CafeMoi::get_current_state()
+{
+    return current_state;
+}
+
+void CafeMoi::set_state(std::string state)
+{
+    current_state = state;
 }
