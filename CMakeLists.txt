@@ -18,6 +18,8 @@ FetchContent_MakeAvailable(SFML)
 
 add_executable(${PROJECT_NAME} src/main.cpp
         src/CafeMoi.cpp
+        src/Logging.h
+        src/Logging.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
@@ -37,6 +39,8 @@ FetchContent_MakeAvailable(Catch2)
 
 add_executable(${PROJECT_NAME}-tests tests/test_main.cpp
         src/CafeMoi.cpp
+        src/Logging.h
+        src/Logging.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}-tests PRIVATE
