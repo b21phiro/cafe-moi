@@ -1,11 +1,9 @@
 cmake_minimum_required(VERSION 3.28)
-project(CafeMoi VERSION 0.1.0 LANGUAGES CXX)
-
-# CMAKE_CURRENT_LIST_DIR is the directory holding the CMakeLists.txt we are currently using
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake")
+project(CafeMoi LANGUAGES CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
 
 include(FetchContent)
 FetchContent_Declare(SFML
@@ -16,16 +14,33 @@ FetchContent_Declare(SFML
     SYSTEM)
 FetchContent_MakeAvailable(SFML)
 
-add_executable(${PROJECT_NAME} src/main.cpp
-        src/CafeMoi.cpp
-        src/Logging.h
-        src/Logging.cpp
-)
+add_executable(${PROJECT_NAME} src/main.cpp)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
-target_link_libraries(${PROJECT_NAME} PRIVATE SFML::Graphics)
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE
+        SFML::Graphics
+)
 
 set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT main)
+
+# Resources
+
+file(GLOB_RECURSE RESOURCE_FILES CONFIGURE_DEPENDS
+        "${CMAKE_CURRENT_SOURCE_DIR}/resources/*"
+)
+
+add_custom_target(update_resources
+        COMMAND ${CMAKE_COMMAND} -E remove_directory
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resources"
+        COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/resources"
+        "$<TARGET_FILE_DIR:${PROJECT_NAME}>/resources"
+        DEPENDS ${RESOURCE_FILES}
+        COMMENT "Updating resources..."
+)
+
+add_dependencies(${PROJECT_NAME} update_resources)
 
 # CafeMoi-tests
 
@@ -37,11 +52,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(${PROJECT_NAME}-tests tests/test_main.cpp
-        src/CafeMoi.cpp
-        src/Logging.h
-        src/Logging.cpp
-)
+add_executable(${PROJECT_NAME}-tests tests/test_main.cpp)
 
 target_link_libraries(${PROJECT_NAME}-tests PRIVATE
         Catch2::Catch2WithMain
