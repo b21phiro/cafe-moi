@@ -3,8 +3,13 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "AssetsManager.h"
+
 class Cafemoi
 {
+
+    void loadAssets(AssetsManager& assets);
+
 public:
 
     Cafemoi();
