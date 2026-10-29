@@ -19,7 +19,10 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/Cafemoi.h
         src/State.h
         src/Menu.cpp
-        src/Menu.h)
+        src/Menu.h
+        src/AssetsManager.cpp
+        src/AssetsManager.h
+        src/Color.h)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_link_libraries(${PROJECT_NAME}

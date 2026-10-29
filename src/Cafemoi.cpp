@@ -5,7 +5,7 @@ Cafemoi::Cafemoi()
     , m_exit(false)
 {
     loadAssets();
-    m_window.create(sf::VideoMode({ 1280u, 720u }), "Cafe Moi - v.0.0.1");
+    m_window.create(sf::VideoMode({ 1280u, 720u }), "Cafe Moi - v.0.0.1", sf::Style::Close);
 }
 
 void Cafemoi::run()
@@ -34,13 +34,19 @@ void Cafemoi::update()
         m_window.close();
         return;
     }
+
+    if (m_state == MenuState)
+    {
+        m_menu->update();
+    }
+
 }
 
 void Cafemoi::draw()
 {
     if (m_state == MenuState)
     {
-        m_menu->draw(m_window);
+        m_menu->draw();
     }
 }
 
@@ -66,9 +72,15 @@ void Cafemoi::play()
 void Cafemoi::loadAssets()
 {
     m_assets.loadTexture("sprite-atlas", "resources/cafemoi-sprite-atlas.png");
+    m_assets.loadFont("cafemoi-regular", "resources/Cafemoi Regular.ttf");
 }
 
 AssetsManager &Cafemoi::getAssets()
 {
     return m_assets;
+}
+
+sf::RenderWindow &Cafemoi::getWindow()
+{
+    return m_window;
 }

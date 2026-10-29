@@ -38,7 +38,8 @@ public:
 
     void play();
 
-    AssetsManager& getAssets();
+    sf::RenderWindow &getWindow();
+    AssetsManager &getAssets();
 
 };
 
