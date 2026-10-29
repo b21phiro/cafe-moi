@@ -1,51 +1,22 @@
 #include "Cafemoi.h"
 
-#include <SFML/Window/VideoMode.hpp>
-#include <SFML/Window/Window.hpp>
-
-#include "AssetsManager.h"
-
 Cafemoi::Cafemoi()
 {
-
+    m_window.create(sf::VideoMode({ 1280u, 720u }), "Cafe Moi - v.0.0.1");
 }
 
 void Cafemoi::run()
 {
-    sf::RenderWindow window(sf::VideoMode({ 1920u, 1080u }), "Cafe moi | v.0.1.0");
-
-    AssetsManager assets;
-    loadAssets(assets);
-
-    while (window.isOpen())
+    while (m_window.isOpen())
     {
-        while (const std::optional event = window.pollEvent())
+        while (const std::optional event = m_window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
             {
-                window.close();
+                m_window.close();
             }
         }
-
-        update();
-
-        draw(window);
-
+        m_window.clear();
+        m_window.display();
     }
-
-}
-
-void Cafemoi::draw(sf::RenderWindow &window)
-{
-    window.clear();
-    window.display();
-}
-
-void Cafemoi::update()
-{
-}
-
-void Cafemoi::loadAssets(AssetsManager& assets)
-{
-    assets.loadTexture("sprite-atlas", "resources/cafemoi-sprite-atlas.png");
 }

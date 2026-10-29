@@ -3,12 +3,10 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 
-#include "AssetsManager.h"
-
 class Cafemoi
 {
 
-    void loadAssets(AssetsManager& assets);
+    sf::RenderWindow m_window;
 
 public:
 
@@ -16,11 +14,6 @@ public:
 
     void run();
 
-    void draw(sf::RenderWindow &window);
-
-    void update();
-
 };
-
 
 #endif

@@ -16,9 +16,7 @@ FetchContent_MakeAvailable(SFML)
 
 add_executable(${PROJECT_NAME} src/main.cpp
         src/Cafemoi.cpp
-        src/Cafemoi.h
-        src/AssetsManager.cpp
-        src/AssetsManager.h)
+        src/Cafemoi.h)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_link_libraries(${PROJECT_NAME}
@@ -56,7 +54,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(${PROJECT_NAME}-tests tests/test_main.cpp)
+add_executable(${PROJECT_NAME}-tests
+        tests/test_main.cpp
+        src/Cafemoi.cpp
+        src/Cafemoi.h)
 
 target_link_libraries(${PROJECT_NAME}-tests PRIVATE
         Catch2::Catch2WithMain
