@@ -4,6 +4,7 @@ Cafemoi::Cafemoi()
     : m_state(MenuState)
     , m_exit(false)
 {
+    loadAssets();
     m_window.create(sf::VideoMode({ 1280u, 720u }), "Cafe Moi - v.0.0.1");
 }
 
@@ -60,4 +61,14 @@ void Cafemoi::menu()
 void Cafemoi::play()
 {
     m_state = PlayState;
+}
+
+void Cafemoi::loadAssets()
+{
+    m_assets.loadTexture("sprite-atlas", "resources/cafemoi-sprite-atlas.png");
+}
+
+AssetsManager &Cafemoi::getAssets()
+{
+    return m_assets;
 }

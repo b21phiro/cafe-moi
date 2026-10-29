@@ -2,6 +2,8 @@
 #define CAFEMOI_CAFEMOI_H
 
 #include <SFML/Graphics/RenderWindow.hpp>
+
+#include "AssetsManager.h"
 #include "State.h"
 #include "Menu.h"
 
@@ -14,7 +16,11 @@ class Cafemoi
 
     std::unique_ptr<Menu> m_menu;
 
+    AssetsManager m_assets;
+
     bool m_exit;
+
+    void loadAssets();
 
 public:
 
@@ -31,6 +37,8 @@ public:
     void menu();
 
     void play();
+
+    AssetsManager& getAssets();
 
 };
 
