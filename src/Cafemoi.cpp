@@ -30,6 +30,8 @@ void Cafemoi::run()
 
 void Cafemoi::update()
 {
+    m_input.update(m_window);
+
     if (m_exit == true)
     {
         m_window.close();
@@ -39,6 +41,9 @@ void Cafemoi::update()
     if (m_state == MenuState)
     {
         m_menu->update();
+    } else if (m_state == PlayState)
+    {
+        m_play->update();
     }
 
 }
@@ -48,6 +53,15 @@ void Cafemoi::draw()
     if (m_state == MenuState)
     {
         m_menu->draw();
+    }
+    else if (m_state == PlayState)
+    {
+        m_play->draw();
+    }
+    else
+    {
+        m_window.clear();
+        m_window.display();
     }
 }
 
@@ -67,6 +81,10 @@ void Cafemoi::menu()
 
 void Cafemoi::play()
 {
+    if (m_play == nullptr)
+    {
+        m_play = std::make_unique<Play>(*this);
+    }
     m_state = PlayState;
 }
 
@@ -94,4 +112,9 @@ std::string &Cafemoi::getVersion()
 void Cafemoi::setVersion(const std::string &version)
 {
     m_version = version;
+}
+
+InputManager &Cafemoi::getInput()
+{
+    return m_input;
 }

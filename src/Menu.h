@@ -16,6 +16,7 @@ class Menu
     sf::Color m_backgroundColor;
 
     // Play button
+    sf::IntRect m_playButtonBounds;
     sf::RectangleShape m_playButtonRect;
     sf::RectangleShape m_playButtonRectTopLeft;
     sf::RectangleShape m_playButtonRectTopRight;
@@ -28,6 +29,7 @@ class Menu
     std::unique_ptr<sf::Text> m_playButtonText;
 
     // Exit button
+    sf::IntRect m_exitButtonBounds;
     sf::RectangleShape m_exitButtonRect;
     sf::RectangleShape m_exitButtonRectTopLeft;
     sf::RectangleShape m_exitButtonRectTopRight;

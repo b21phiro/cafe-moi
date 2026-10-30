@@ -11,10 +11,20 @@ Menu::Menu(Cafemoi &cafemoi)
     initVersionNumberText();
 }
 
-
 void Menu::update()
 {
-
+    auto& input = m_cafemoi.getInput();
+    if (input.wasMouseButtonJustReleased(sf::Mouse::Button::Left))
+    {
+        auto& point = input.getMouse();
+        if (m_playButtonBounds.contains(point))
+        {
+            m_cafemoi.play();
+        } else if (m_exitButtonBounds.contains(point))
+        {
+            m_cafemoi.exit();
+        }
+    }
 }
 
 void Menu::draw()
@@ -115,6 +125,15 @@ void Menu::initPlayButton()
         m_playButtonRect.getGlobalBounds().position.x + m_playButtonRect.getLocalBounds().size.x,
         (m_playButtonRect.getGlobalBounds().position.y + m_playButtonRectBottomRight.getLocalBounds().size.y)
     });
+
+    const auto positionTopLeft = static_cast<sf::Vector2i>(m_playButtonRectTopLeft.getGlobalBounds().position);
+    const auto positionBottomRight = static_cast<sf::Vector2i>(m_playButtonRectBottomRight.getGlobalBounds().position + m_playButtonRectBottomRight.getLocalBounds().size);
+    const int x = positionTopLeft.x;
+    const int y = positionTopLeft.y;
+    int width = std::abs(x - positionBottomRight.x);
+    int height = std::abs(y - positionBottomRight.y);
+    m_playButtonBounds = sf::IntRect(positionTopLeft, { width, height });
+
 }
 
 void Menu::drawPlayButton()
@@ -220,6 +239,14 @@ void Menu::initExitButton()
         m_exitButtonRect.getGlobalBounds().position.x + m_exitButtonRect.getLocalBounds().size.x,
         (m_exitButtonRect.getGlobalBounds().position.y + m_exitButtonRectBottomRight.getLocalBounds().size.y)
     });
+
+    const auto positionTopLeft = static_cast<sf::Vector2i>(m_exitButtonRectTopLeft.getGlobalBounds().position);
+    const auto positionBottomRight = static_cast<sf::Vector2i>(m_exitButtonRectBottomRight.getGlobalBounds().position + m_exitButtonRectBottomRight.getLocalBounds().size);
+    const int x = positionTopLeft.x;
+    const int y = positionTopLeft.y;
+    int width = std::abs(x - positionBottomRight.x);
+    int height = std::abs(y - positionBottomRight.y);
+    m_exitButtonBounds = sf::IntRect(positionTopLeft, { width, height });
 }
 
 void Menu::drawExitButton()
