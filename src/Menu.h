@@ -15,6 +15,7 @@ class Menu
 
     sf::Color m_backgroundColor;
 
+    // Play button
     sf::RectangleShape m_playButtonRect;
     sf::RectangleShape m_playButtonRectTopLeft;
     sf::RectangleShape m_playButtonRectTopRight;
@@ -24,11 +25,30 @@ class Menu
     sf::RectangleShape m_playButtonRectBottomLeft;
     sf::RectangleShape m_playButtonRectBottomRight;
     sf::RectangleShape m_playButtonRectBottom;
-
     std::unique_ptr<sf::Text> m_playButtonText;
+
+    // Exit button
+    sf::RectangleShape m_exitButtonRect;
+    sf::RectangleShape m_exitButtonRectTopLeft;
+    sf::RectangleShape m_exitButtonRectTopRight;
+    sf::RectangleShape m_exitButtonRectTop;
+    sf::RectangleShape m_exitButtonRectLeft;
+    sf::RectangleShape m_exitButtonRectRight;
+    sf::RectangleShape m_exitButtonRectBottomLeft;
+    sf::RectangleShape m_exitButtonRectBottomRight;
+    sf::RectangleShape m_exitButtonRectBottom;
+    std::unique_ptr<sf::Text> m_exitButtonText;
 
     void initPlayButton();
     void drawPlayButton();
+
+    void initExitButton();
+    void drawExitButton();
+
+    // Version number
+    std::unique_ptr<sf::Text> versionNumberText;
+    void initVersionNumberText();
+    void drawVersionNumberText();
 
 public:
 

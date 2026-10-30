@@ -2,10 +2,11 @@
 
 Cafemoi::Cafemoi()
     : m_state(MenuState)
+    , m_version("Unknown version")
     , m_exit(false)
 {
     loadAssets();
-    m_window.create(sf::VideoMode({ 1280u, 720u }), "Cafe Moi - v.0.0.1", sf::Style::Close);
+    m_window.create(sf::VideoMode({ 1280u, 720u }), "Cafe Moi", sf::Style::Close);
 }
 
 void Cafemoi::run()
@@ -83,4 +84,14 @@ AssetsManager &Cafemoi::getAssets()
 sf::RenderWindow &Cafemoi::getWindow()
 {
     return m_window;
+}
+
+std::string &Cafemoi::getVersion()
+{
+    return m_version;
+}
+
+void Cafemoi::setVersion(const std::string &version)
+{
+    m_version = version;
 }

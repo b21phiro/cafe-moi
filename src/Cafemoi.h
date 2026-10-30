@@ -18,6 +18,8 @@ class Cafemoi
 
     AssetsManager m_assets;
 
+    std::string m_version;
+
     bool m_exit;
 
     void loadAssets();
@@ -40,6 +42,9 @@ public:
 
     sf::RenderWindow &getWindow();
     AssetsManager &getAssets();
+
+    void setVersion(const std::string &version);
+    std::string &getVersion();
 
 };
 
