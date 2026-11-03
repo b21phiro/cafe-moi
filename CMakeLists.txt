@@ -19,9 +19,9 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/Menu.cpp
         src/AssetsManager.cpp
         src/InputManager.cpp
-        src/InputManager.h
         src/Play.cpp
-        src/Play.h)
+        src/EntityManager.cpp
+)
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 target_link_libraries(${PROJECT_NAME}
@@ -59,10 +59,9 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(${PROJECT_NAME}-tests
-        tests/test_main.cpp
-        src/Cafemoi.cpp
-        src/Cafemoi.h)
+add_executable(${PROJECT_NAME}-tests tests/test_main.cpp
+        src/EntityManager.cpp
+)
 
 target_link_libraries(${PROJECT_NAME}-tests PRIVATE
         Catch2::Catch2WithMain

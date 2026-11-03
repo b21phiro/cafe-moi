@@ -4,6 +4,7 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 #include "AssetsManager.h"
+#include "EntityManager.h"
 #include "InputManager.h"
 #include "State.h"
 #include "Menu.h"
@@ -34,7 +35,6 @@ public:
     Cafemoi();
 
     void update();
-
     void draw();
 
     void run();

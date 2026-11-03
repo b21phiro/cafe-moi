@@ -4,6 +4,7 @@
 
 Play::Play(Cafemoi &cafemoi)
     : m_cafemoi(cafemoi)
+    , m_entities(3000)
 {
 
 }

@@ -1,5 +1,7 @@
 #include "Cafemoi.h"
 
+#include <iostream>
+
 Cafemoi::Cafemoi()
     : m_state(MenuState)
     , m_version("Unknown version")
@@ -11,9 +13,7 @@ Cafemoi::Cafemoi()
 
 void Cafemoi::run()
 {
-
     menu();
-
     while (m_window.isOpen())
     {
         while (const std::optional event = m_window.pollEvent())
