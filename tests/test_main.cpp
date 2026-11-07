@@ -1,6 +1,8 @@
 #define CATCH_CONFIG_MAIN
 
 #include <catch2/catch_test_macros.hpp>
+
+#include "../src/ComponentsManager.h"
 #include "../src/EntityManager.h"
 
 // ========================================================================================
@@ -65,4 +67,48 @@ TEST_CASE("Overflow of entity stack resets it", "[EntityManager]")
     REQUIRE(std::size(entities) == 2);
     REQUIRE(entities[0] == 2);
     REQUIRE(entities[1] == -1);
+}
+
+// ========================================================================================
+// ComponentsManager
+// ========================================================================================
+
+TEST_CASE("Adding component to entity")
+{
+    int entity = 1;
+    ComponentsManager componentsManager;
+    componentsManager.addTag(entity, "Food");
+    REQUIRE(componentsManager.hasTag(entity) == true);
+}
+
+TEST_CASE("Retrieving an entity´s component")
+{
+    int entityA = 0;
+    int entityB = 1;
+    int entityC = 2;
+
+    ComponentsManager componentsManager;
+    componentsManager.addTag(entityA, "Food");
+    componentsManager.addTag(entityC, "Snack");
+    componentsManager.addTag(entityB, "Beverage");
+
+    REQUIRE(componentsManager.getTag(entityB).value == "Beverage");
+    REQUIRE(componentsManager.getTag(entityC).value == "Snack");
+    REQUIRE(componentsManager.getTag(entityA).value == "Food");
+}
+
+TEST_CASE("Removing an entity along with their component")
+{
+    int entityA = 0;
+    int entityB = 1;
+
+    ComponentsManager componentsManager;
+    componentsManager.addTag(entityA, "Food");
+    auto& tagB = componentsManager.addTag(entityB, "Beverage");
+
+    componentsManager.removeEntity(entityB);
+    REQUIRE(tagB.remove == true);
+    componentsManager.update();
+    REQUIRE(componentsManager.hasTag(entityA) == true);
+    REQUIRE(componentsManager.hasTag(entityB) == false);
 }

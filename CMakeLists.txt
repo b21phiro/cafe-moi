@@ -21,6 +21,9 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/InputManager.cpp
         src/Play.cpp
         src/EntityManager.cpp
+        src/ComponentsManager.cpp
+        src/components/Position.cpp
+        src/components/Tag.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
@@ -59,8 +62,11 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(Catch2)
 
-add_executable(${PROJECT_NAME}-tests tests/test_main.cpp
+add_executable(${PROJECT_NAME}-tests
+        tests/test_main.cpp
         src/EntityManager.cpp
+        src/ComponentsManager.cpp
+        src/components/Tag.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}-tests PRIVATE
