@@ -2,9 +2,7 @@
 #define CAFEMOI_CAFEMOI_H
 
 #include <SFML/Graphics/RenderWindow.hpp>
-
 #include "AssetsManager.h"
-#include "EntityManager.h"
 #include "InputManager.h"
 #include "State.h"
 #include "Menu.h"
