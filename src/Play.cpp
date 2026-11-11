@@ -10,6 +10,7 @@ Play::Play(Cafemoi &cafemoi)
 
     int player = createEntity();
     add<TagComponent>(player, "Player");
+    add<SpriteComponent>(player, sf::Sprite(m_cafemoi.getAssets().getTexture("sprite-atlas"), sf::IntRect({0, 0}, {16, 16})));
 
 }
 
@@ -21,6 +22,7 @@ void Play::draw()
 {
     auto& window = m_cafemoi.getWindow();
     window.clear();
+    window.draw(*get<SpriteComponent>(1).sprite);
     window.display();
 }
 

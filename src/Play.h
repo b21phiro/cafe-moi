@@ -4,6 +4,8 @@
 #include <map>
 #include <stdexcept>
 #include <vector>
+
+#include "components/SpriteComponent.h"
 #include "components/TagComponent.h"
 
 namespace sf { class RenderWindow; }
@@ -12,13 +14,13 @@ class Cafemoi;
 
 class Play
 {
-
     Cafemoi& m_cafemoi;
 
-    std::vector<int> m_entities;
     int m_nextEntityID;
+    std::vector<int> m_entities;
 
     std::map<int, TagComponent> m_tags;
+    std::map<int, SpriteComponent> m_sprites;
 
 public:
 
@@ -47,11 +49,16 @@ T& Play::add(const int entity, Args&& ...args)
         throw std::runtime_error("Error, the entity must exists if you want to add components to it.");
     }
 
-    if (std::is_same_v<TagComponent, T>)
+    if constexpr (std::is_same_v<T, TagComponent>)
     {
         m_tags[entity] = T(std::forward<Args>(args)...);
         return m_tags[entity];
-    } else
+    } else if constexpr (std::is_same_v<T, SpriteComponent>)
+    {
+        m_sprites[entity] = T(std::forward<Args>(args)...);
+        return m_sprites[entity];
+    }
+    else
     {
         throw std::runtime_error("Error, attempted to add unknown component to entity");
     }
@@ -66,9 +73,13 @@ T& Play::get(const int entity)
         throw std::runtime_error("Error, the entity must exists if you want to add components to it.");
     }
 
-    if (std::is_same_v<TagComponent, T>)
+    if constexpr (std::is_same_v<TagComponent, T>)
     {
         return m_tags[entity];
+    }
+    else if constexpr (std::is_same_v<SpriteComponent, T>)
+    {
+        return m_sprites[entity];
     } else
     {
         throw std::runtime_error("Error, attempted to add unknown component to entity");
