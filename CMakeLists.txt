@@ -20,6 +20,7 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/AssetsManager.cpp
         src/InputManager.cpp
         src/Play.cpp
+        src/components/TagComponent.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
