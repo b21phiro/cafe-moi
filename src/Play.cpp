@@ -3,24 +3,19 @@
 
 Play::Play(Cafemoi &cafemoi)
     : m_cafemoi(cafemoi)
+    , m_world(cafemoi.getAssets())
 {
-    int flowerPot = m_entities.createEntity();
-    add<TagComponent>(flowerPot, "Misc");
-
-    int player = m_entities.createEntity();
-    add<TagComponent>(player, "Player");
-    add<SpriteComponent>(player, sf::Sprite(m_cafemoi.getAssets().getTexture("sprite-atlas"), sf::IntRect({0, 0}, {16, 16})));
-
 }
 
 void Play::update()
 {
+    m_world.update();
 }
 
 void Play::draw()
 {
     auto& window = m_cafemoi.getWindow();
     window.clear();
-    window.draw(*get<SpriteComponent>(1).sprite);
+    m_world.draw(window);
     window.display();
 }

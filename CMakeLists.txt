@@ -24,6 +24,10 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/components/SpriteComponent.cpp
         src/EntityManager.cpp
         src/EntityManager.h
+        src/ComponentManager.cpp
+        src/ComponentManager.h
+        src/World.cpp
+        src/World.h
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
