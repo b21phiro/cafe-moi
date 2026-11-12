@@ -2,7 +2,6 @@
 
 SpriteComponent::SpriteComponent()
 {
-
 }
 
 SpriteComponent::SpriteComponent(sf::Sprite sprite)

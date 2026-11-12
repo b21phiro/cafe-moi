@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <vector>
 
+#include "EntityManager.h"
 #include "components/SpriteComponent.h"
 #include "components/TagComponent.h"
 
@@ -16,11 +17,10 @@ class Play
 {
     Cafemoi& m_cafemoi;
 
-    int m_nextEntityID;
-    std::vector<int> m_entities;
-
     std::map<int, TagComponent> m_tags;
     std::map<int, SpriteComponent> m_sprites;
+
+    EntityManager m_entities;
 
 public:
 
@@ -29,8 +29,6 @@ public:
     void update();
 
     void draw();
-
-    int createEntity();
 
     template <typename T, typename ...Args>
     T& add(int entity, Args&& ...args);
@@ -44,7 +42,7 @@ template<typename T, typename ...Args>
 T& Play::add(const int entity, Args&& ...args)
 {
 
-    if (std::find(m_entities.begin(), m_entities.end(), entity) == m_entities.end())
+    if (!m_entities.hasEntity(entity))
     {
         throw std::runtime_error("Error, the entity must exists if you want to add components to it.");
     }
@@ -68,7 +66,7 @@ T& Play::add(const int entity, Args&& ...args)
 template<typename T>
 T& Play::get(const int entity)
 {
-    if (std::find(m_entities.begin(), m_entities.end(), entity) == m_entities.end())
+    if (!m_entities.hasEntity(entity))
     {
         throw std::runtime_error("Error, the entity must exists if you want to add components to it.");
     }

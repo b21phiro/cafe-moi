@@ -3,12 +3,11 @@
 
 Play::Play(Cafemoi &cafemoi)
     : m_cafemoi(cafemoi)
-    , m_nextEntityID(0)
 {
-    int flowerPot = createEntity();
+    int flowerPot = m_entities.createEntity();
     add<TagComponent>(flowerPot, "Misc");
 
-    int player = createEntity();
+    int player = m_entities.createEntity();
     add<TagComponent>(player, "Player");
     add<SpriteComponent>(player, sf::Sprite(m_cafemoi.getAssets().getTexture("sprite-atlas"), sf::IntRect({0, 0}, {16, 16})));
 
@@ -24,12 +23,4 @@ void Play::draw()
     window.clear();
     window.draw(*get<SpriteComponent>(1).sprite);
     window.display();
-}
-
-int Play::createEntity()
-{
-    const int entity = m_nextEntityID;
-    m_entities.push_back(entity);
-    m_nextEntityID++;
-    return entity;
 }
