@@ -31,6 +31,8 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/systems/MoveSystem.cpp
         src/components/AnimatedSpriteComponent.cpp
         src/systems/RenderSystem.cpp
+        src/Animation.cpp
+        src/Animation.h
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

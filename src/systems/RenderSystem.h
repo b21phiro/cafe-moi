@@ -12,6 +12,8 @@ public:
 
     RenderSystem();
 
+    void updateAnimations(EntityManager& entities, ComponentManager& components, const sf::Time& delta);
+
     void process(sf::RenderWindow& window, EntityManager& entities, ComponentManager& components);
 
 };

@@ -31,3 +31,13 @@ void RenderSystem::process(sf::RenderWindow& window, EntityManager& entities, Co
     }
 
 }
+
+void RenderSystem::updateAnimations(EntityManager& entities, ComponentManager& components, const sf::Time& delta)
+{
+    for (const Entity entity : entities.getAll())
+    {
+        if (!components.has<AnimatedSpriteComponent>(entity)) continue;
+        auto& sprite = components.get<AnimatedSpriteComponent>(entity);
+        sprite.update(delta);
+    }
+}

@@ -13,8 +13,14 @@ World::World(InputManager& input, AssetsManager& assets)
 
     const int player = m_entities.createEntity();
     add<TagComponent>(player, "Player");
-    add<SpriteComponent>(player, sf::Sprite(assets.getTexture("sprite-atlas"), sf::IntRect({ 0, 0 }, { 16, 16 })));
     add<SpeedComponent>(player, sf::Vector2f(-1.f, 0.f));
+    auto& playerSprite = add<AnimatedSpriteComponent>(player, sf::Sprite(assets.getTexture("sprite-atlas"), sf::IntRect({ 0, 0 }, { 16, 16 })));
+    playerSprite.addAnimation("walking-south", std::vector{
+        sf::IntRect({ 0, 0 }, { 16, 16 }),
+        sf::IntRect({ 16, 0 }, { 16, 16 }),
+        sf::IntRect({ 0, 0 }, { 16, 16 }),
+        sf::IntRect({ 32, 0 }, { 16, 16 }),
+    });
 
     m_camera.setZoom(4.5f);
 
@@ -22,6 +28,7 @@ World::World(InputManager& input, AssetsManager& assets)
 
 void World::update(const sf::Time& delta)
 {
+    m_renderSystem.updateAnimations(m_entities, m_components, delta);
     m_moveSystem.process(m_entities, m_components, delta);
 }
 
