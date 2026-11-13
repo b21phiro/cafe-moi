@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics/RenderWindow.hpp>
 #include "AssetsManager.h"
+#include "GameSettings.h"
 #include "InputManager.h"
 #include "State.h"
 #include "Menu.h"
@@ -10,6 +11,8 @@
 
 class Cafemoi
 {
+
+    GameSettings m_settings;
 
     sf::RenderWindow m_window;
 
@@ -34,22 +37,19 @@ public:
 
     void update();
     void draw();
-
     void run();
-
     void exit();
-
     void menu();
-
     void play();
 
-    sf::RenderWindow &getWindow();
+    sf::RenderWindow& getWindow();
 
-    AssetsManager &getAssets();
-    InputManager &getInput();
+    AssetsManager& getAssets();
+    InputManager& getInput();
+    GameSettings& getSettings();
 
     void setVersion(const std::string &version);
-    std::string &getVersion();
+    std::string& getVersion();
 
 };
 

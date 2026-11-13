@@ -2,8 +2,10 @@
 #define CAFEMOI_WORLD_H
 
 #include "AssetsManager.h"
+#include "Camera.h"
 #include "ComponentManager.h"
 #include "EntityManager.h"
+#include "GameSettings.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 
 class World
@@ -13,6 +15,7 @@ class World
     ComponentManager m_components;
 
     AssetsManager& m_assets;
+    Camera m_camera;
 
     template <typename T, typename ...Args>
     T& add(int entity, Args&& ...args);
@@ -26,6 +29,8 @@ public:
 
     void update();
     void draw(sf::RenderWindow& window);
+
+    void applyGameSettings(GameSettings& gameSettings);
 
 };
 

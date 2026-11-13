@@ -25,6 +25,10 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/EntityManager.cpp
         src/ComponentManager.cpp
         src/World.cpp
+        src/Camera.cpp
+        src/Camera.h
+        src/GameSettings.cpp
+        src/GameSettings.h
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

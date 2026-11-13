@@ -3,12 +3,13 @@
 #include <iostream>
 
 Cafemoi::Cafemoi()
-    : m_state(MenuState)
+    : m_settings()
+    , m_state(MenuState)
     , m_version("Unknown version")
     , m_exit(false)
 {
     loadAssets();
-    m_window.create(sf::VideoMode({ 1280u, 720u }), "Cafe Moi", sf::Style::Close);
+    m_window.create(sf::VideoMode(m_settings.getScreenSize()), "Cafe Moi", sf::Style::Close);
 }
 
 void Cafemoi::run()
@@ -94,17 +95,17 @@ void Cafemoi::loadAssets()
     m_assets.loadFont("cafemoi-regular", "resources/Cafemoi Regular.ttf");
 }
 
-AssetsManager &Cafemoi::getAssets()
+AssetsManager& Cafemoi::getAssets()
 {
     return m_assets;
 }
 
-sf::RenderWindow &Cafemoi::getWindow()
+sf::RenderWindow& Cafemoi::getWindow()
 {
     return m_window;
 }
 
-std::string &Cafemoi::getVersion()
+std::string& Cafemoi::getVersion()
 {
     return m_version;
 }
@@ -114,7 +115,12 @@ void Cafemoi::setVersion(const std::string &version)
     m_version = version;
 }
 
-InputManager &Cafemoi::getInput()
+InputManager& Cafemoi::getInput()
 {
     return m_input;
+}
+
+GameSettings& Cafemoi::getSettings()
+{
+    return m_settings;
 }

@@ -5,6 +5,7 @@ Play::Play(Cafemoi &cafemoi)
     : m_cafemoi(cafemoi)
     , m_world(cafemoi.getAssets())
 {
+    m_world.applyGameSettings(m_cafemoi.getSettings());
 }
 
 void Play::update()
