@@ -3,14 +3,14 @@
 
 Play::Play(Cafemoi &cafemoi)
     : m_cafemoi(cafemoi)
-    , m_world(cafemoi.getAssets())
+    , m_world(cafemoi.getInput(), cafemoi.getAssets())
 {
     m_world.applyGameSettings(m_cafemoi.getSettings());
 }
 
-void Play::update()
+void Play::update(const sf::Time& delta)
 {
-    m_world.update();
+    m_world.update(delta);
 }
 
 void Play::draw()

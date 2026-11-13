@@ -15,8 +15,10 @@ Cafemoi::Cafemoi()
 void Cafemoi::run()
 {
     menu();
+    sf::Clock clock;
     while (m_window.isOpen())
     {
+        sf::Time delta = clock.restart();
         while (const std::optional event = m_window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
@@ -24,12 +26,12 @@ void Cafemoi::run()
                 m_window.close();
             }
         }
-        update();
+        update(delta);
         draw();
     }
 }
 
-void Cafemoi::update()
+void Cafemoi::update(const sf::Time& delta)
 {
     m_input.update(m_window);
 
@@ -44,7 +46,7 @@ void Cafemoi::update()
         m_menu->update();
     } else if (m_state == PlayState)
     {
-        m_play->update();
+        m_play->update(delta);
     }
 
 }

@@ -1,5 +1,6 @@
 #ifndef CAFEMOI_PLAY_H
 #define CAFEMOI_PLAY_H
+
 #include "World.h"
 
 namespace sf { class RenderWindow; }
@@ -16,7 +17,7 @@ public:
 
     explicit Play(Cafemoi& cafemoi);
 
-    void update();
+    void update(const sf::Time& delta = sf::Time::Zero);
 
     void draw();
 
