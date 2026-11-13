@@ -1,4 +1,7 @@
 #include "World.h"
+#include "AssetsManager.h"
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/RenderWindow.hpp>
 
 World::World(InputManager& input, AssetsManager& assets)
     : m_assets(assets)
@@ -19,13 +22,13 @@ World::World(InputManager& input, AssetsManager& assets)
 
 void World::update(const sf::Time& delta)
 {
-    m_moveSystem.process(m_entities.getAll(), m_components, delta);
+    m_moveSystem.process(m_entities, m_components, delta);
 }
 
 void World::draw(sf::RenderWindow& window)
 {
     window.setView(m_camera.getView());
-    window.draw(*m_components.get<SpriteComponent>(1).sprite);
+    m_renderSystem.process(window, m_entities, m_components);
 }
 
 void World::applyGameSettings(GameSettings& gameSettings)

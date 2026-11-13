@@ -5,6 +5,7 @@
 #include <stdexcept>
 #include <vector>
 
+#include "components/AnimatedSpriteComponent.h"
 #include "components/SpeedComponent.h"
 #include "components/SpriteComponent.h"
 #include "components/TagComponent.h"
@@ -14,6 +15,7 @@ class ComponentManager
 
     std::map<int, TagComponent> m_tags;
     std::map<int, SpriteComponent> m_sprites;
+    std::map<int, AnimatedSpriteComponent> m_animated_sprites;
     std::map<int, SpeedComponent> m_speeds;
 
 public:
@@ -45,6 +47,10 @@ T& ComponentManager::add(const int entity, Args&& ...args)
     {
         m_sprites[entity] = T(std::forward<Args>(args)...);
         return m_sprites[entity];
+    } else if constexpr (std::is_same_v<T, AnimatedSpriteComponent>)
+    {
+        m_animated_sprites[entity] = T(std::forward<Args>(args)...);
+        return m_animated_sprites[entity];
     } else if constexpr (std::is_same_v<T, SpeedComponent>)
     {
         m_speeds[entity] = T(std::forward<Args>(args)...);
@@ -66,6 +72,9 @@ bool ComponentManager::has(const int entity)
     else if constexpr (std::is_same_v<SpriteComponent, T>)
     {
         return m_sprites.find(entity) != m_sprites.end();
+    } else if constexpr (std::is_same_v<AnimatedSpriteComponent, T>)
+    {
+        return m_animated_sprites.find(entity) != m_animated_sprites.end();
     } else if constexpr (std::is_same_v<SpeedComponent, T>)
     {
         return m_speeds.find(entity) != m_speeds.end();
@@ -85,6 +94,9 @@ T& ComponentManager::get(const int entity)
     else if constexpr (std::is_same_v<SpriteComponent, T>)
     {
         return m_sprites[entity];
+    } else if constexpr (std::is_same_v<AnimatedSpriteComponent, T>)
+    {
+        return m_animated_sprites[entity];
     } else if constexpr (std::is_same_v<SpeedComponent, T>)
     {
         return m_speeds[entity];
@@ -104,6 +116,9 @@ std::map<int, T>& ComponentManager::getAll()
     else if constexpr (std::is_same_v<SpriteComponent, T>)
     {
         return m_sprites;
+    } else if constexpr (std::is_same_v<AnimatedSpriteComponent, T>)
+    {
+        return m_animated_sprites;
     } else if constexpr (std::is_same_v<SpeedComponent, T>)
     {
         return m_speeds;

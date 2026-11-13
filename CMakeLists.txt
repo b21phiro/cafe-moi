@@ -26,13 +26,11 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/ComponentManager.cpp
         src/World.cpp
         src/Camera.cpp
-        src/Camera.h
         src/GameSettings.cpp
-        src/GameSettings.h
         src/components/SpeedComponent.cpp
-        src/components/SpeedComponent.h
         src/systems/MoveSystem.cpp
-        src/systems/MoveSystem.h
+        src/components/AnimatedSpriteComponent.cpp
+        src/systems/RenderSystem.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

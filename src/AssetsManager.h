@@ -1,10 +1,12 @@
 #ifndef CAFEMOI_ASSETS_MANAGER_H
 #define CAFEMOI_ASSETS_MANAGER_H
 
+#include <filesystem>
 #include <map>
 #include <memory>
-#include <SFML/Graphics/Texture.hpp>
+#include <string>
 #include <SFML/Graphics/Font.hpp>
+#include <SFML/Graphics/Texture.hpp>
 
 class AssetsManager
 {

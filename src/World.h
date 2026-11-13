@@ -1,13 +1,13 @@
 #ifndef CAFEMOI_WORLD_H
 #define CAFEMOI_WORLD_H
 
-#include <SFML/Graphics/RenderWindow.hpp>
-#include "AssetsManager.h"
 #include "Camera.h"
 #include "ComponentManager.h"
 #include "EntityManager.h"
-#include "GameSettings.h"
 #include "systems/MoveSystem.h"
+#include "systems/RenderSystem.h"
+
+class AssetsManager;
 
 class World
 {
@@ -19,6 +19,7 @@ class World
     Camera m_camera;
 
     MoveSystem m_moveSystem;
+    RenderSystem m_renderSystem;
 
     template <typename T, typename ...Args>
     T& add(int entity, Args&& ...args);

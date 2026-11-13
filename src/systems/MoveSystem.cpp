@@ -1,12 +1,19 @@
 #include "MoveSystem.h"
+#include "../ComponentManager.h"
+#include "../EntityManager.h"
+#include "../InputManager.h"
+#include "../components/SpeedComponent.h"
+#include "../components/TagComponent.h"
+#include "../components/SpriteComponent.h"
+#include "../components/AnimatedSpriteComponent.h"
 
 MoveSystem::MoveSystem(InputManager& input)
     : m_input(input)
 {}
 
-void MoveSystem::process(const std::vector<Entity>& entities, ComponentManager& components, const sf::Time& delta) const
+void MoveSystem::process(EntityManager& entities, ComponentManager& components, const sf::Time& delta) const
 {
-    for (const Entity entity : entities)
+    for (const Entity entity : entities.getAll())
     {
         if (!components.has<SpeedComponent>(entity)) continue;
         auto& speed = components.get<SpeedComponent>(entity);
@@ -17,10 +24,16 @@ void MoveSystem::process(const std::vector<Entity>& entities, ComponentManager& 
             handlePlayerMovement(speed);
         }
 
-        if (!components.has<SpriteComponent>(entity)) continue;
-        const auto& sprite = components.get<SpriteComponent>(entity);
-        sprite.sprite->move(speed.current * delta.asSeconds() * 100.f);
+        speed.current *= delta.asSeconds() * 100.f;
 
+        if (components.has<SpriteComponent>(entity))
+        {
+            components.get<SpriteComponent>(entity).sprite->move(speed.current);
+        }
+        if (components.has<AnimatedSpriteComponent>(entity))
+        {
+            components.get<AnimatedSpriteComponent>(entity).sprite->move(speed.current);
+        }
     }
 }
 

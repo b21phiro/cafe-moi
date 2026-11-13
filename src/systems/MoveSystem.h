@@ -1,9 +1,12 @@
 #ifndef CAFEMOI_MOVE_SYSTEM_H
 #define CAFEMOI_MOVE_SYSTEM_H
 
-#include "../ComponentManager.h"
-#include "../EntityManager.h"
-#include "../InputManager.h"
+#include <SFML/System/Time.hpp>
+
+struct SpeedComponent;
+class InputManager;
+class ComponentManager;
+class EntityManager;
 
 class MoveSystem
 {
@@ -16,7 +19,7 @@ public:
 
     explicit MoveSystem(InputManager& input);
 
-    void process(const std::vector<Entity>& entities, ComponentManager& components, const sf::Time& delta = sf::Time::Zero) const;
+    void process(EntityManager& entities, ComponentManager& components, const sf::Time& delta = sf::Time::Zero) const;
 
 };
 

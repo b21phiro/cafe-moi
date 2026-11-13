@@ -1,9 +1,6 @@
 #include "AssetsManager.h"
 
-AssetsManager::AssetsManager()
-{
-
-}
+AssetsManager::AssetsManager() = default;
 
 void AssetsManager::loadTexture(const std::string& name, const std::filesystem::path &path)
 {
