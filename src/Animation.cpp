@@ -1,8 +1,10 @@
 #include "Animation.h"
 #include <SFML/Graphics/Sprite.hpp>
 
-Animation::Animation(sf::Sprite& sprite, std::vector<AnimationFrame>&& frames)
-    : sprite(sprite)
+Animation::Animation(const std::string& name, sf::Sprite& sprite, std::vector<AnimationFrame>&& frames)
+    : name(name)
+    , isPlaying(true)
+    , sprite(sprite)
     , frames(frames)
     , currentFrame(0)
     , timeSinceLastFrame(sf::Time::Zero)
@@ -10,6 +12,11 @@ Animation::Animation(sf::Sprite& sprite, std::vector<AnimationFrame>&& frames)
 
 void Animation::update(const sf::Time& delta)
 {
+    if (!isPlaying)
+    {
+
+        return;
+    }
     timeSinceLastFrame += delta;
 
     while (timeSinceLastFrame >= sf::milliseconds(100))
@@ -40,4 +47,34 @@ AnimationFrame& Animation::getCurrentFrame()
 void Animation::applyCurrentFrame()
 {
     sprite.setTextureRect(getCurrentFrame());
+}
+
+void Animation::reset()
+{
+    currentFrame = 0;
+    timeSinceLastFrame = sf::Time::Zero;
+}
+
+void Animation::pause()
+{
+    isPlaying = false;
+}
+
+void Animation::resume()
+{
+    isPlaying = true;
+}
+
+void Animation::stop()
+{
+    reset();
+    applyCurrentFrame();
+    isPlaying = false;
+}
+
+void Animation::start()
+{
+    reset();
+    applyCurrentFrame();
+    isPlaying = true;
 }

@@ -3,6 +3,7 @@
 
 #include <SFML/System/Time.hpp>
 
+struct AnimatedSpriteComponent;
 struct SpeedComponent;
 class InputManager;
 class ComponentManager;
@@ -13,13 +14,15 @@ class MoveSystem
 
     InputManager& m_input;
 
-    void handlePlayerMovement(SpeedComponent& playerSpeed) const;
+    void handlePlayerMovement(SpeedComponent& playerSpeed, AnimatedSpriteComponent& playerSprite);
+
+    void normalizeSpeed(SpeedComponent& speed);
 
 public:
 
     explicit MoveSystem(InputManager& input);
 
-    void process(EntityManager& entities, ComponentManager& components, const sf::Time& delta = sf::Time::Zero) const;
+    void process(EntityManager& entities, ComponentManager& components, const sf::Time& delta = sf::Time::Zero);
 
 };
 

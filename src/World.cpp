@@ -15,11 +15,33 @@ World::World(InputManager& input, AssetsManager& assets)
     add<TagComponent>(player, "Player");
     add<SpeedComponent>(player, sf::Vector2f(-1.f, 0.f));
     auto& playerSprite = add<AnimatedSpriteComponent>(player, sf::Sprite(assets.getTexture("sprite-atlas"), sf::IntRect({ 0, 0 }, { 16, 16 })));
-    playerSprite.addAnimation("walking-south", std::vector{
+
+    playerSprite.addAnimation("player-move-down", std::vector{
         sf::IntRect({ 0, 0 }, { 16, 16 }),
         sf::IntRect({ 16, 0 }, { 16, 16 }),
         sf::IntRect({ 0, 0 }, { 16, 16 }),
         sf::IntRect({ 32, 0 }, { 16, 16 }),
+    });
+
+    playerSprite.addAnimation("player-move-right", std::vector{
+        sf::IntRect({ 0, 32 }, { 16, 16 }),
+        sf::IntRect({ 16, 32 }, { 16, 16 }),
+        sf::IntRect({ 0, 32 }, { 16, 16 }),
+        sf::IntRect({ 32, 32 }, { 16, 16 }),
+    });
+
+    playerSprite.addAnimation("player-move-left", std::vector{
+        sf::IntRect({ 0, 48 }, { 16, 16 }),
+        sf::IntRect({ 16, 48 }, { 16, 16 }),
+        sf::IntRect({ 0, 48 }, { 16, 16 }),
+        sf::IntRect({ 32, 48 }, { 16, 16 }),
+    });
+
+    playerSprite.addAnimation("player-move-up", std::vector{
+        sf::IntRect({ 0, 16 }, { 16, 16 }),
+        sf::IntRect({ 16, 16 }, { 16, 16 }),
+        sf::IntRect({ 0, 16 }, { 16, 16 }),
+        sf::IntRect({ 32, 16 }, { 16, 16 }),
     });
 
     m_camera.setZoom(4.5f);

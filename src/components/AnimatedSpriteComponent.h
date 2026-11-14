@@ -20,10 +20,11 @@ struct AnimatedSpriteComponent : SpriteComponent
 
     void play(const std::string& animationName);
 
+    void stop(const std::string& animationName);
+
     void update(const sf::Time& delta);
 
     void playTheFirstAnimation();
-
 };
 
 #endif
