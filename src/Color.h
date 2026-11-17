@@ -4,6 +4,7 @@
 #include <SFML/Graphics/Color.hpp>
 
 constexpr sf::Color SkyBlue(126, 209, 245);
+
 constexpr sf::Color VeryDarkPurple(26, 1, 20);
 
 #endif

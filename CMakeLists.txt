@@ -32,7 +32,12 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/components/AnimatedSpriteComponent.cpp
         src/systems/RenderSystem.cpp
         src/Animation.cpp
-        src/Animation.h
+        src/graphics/Material.cpp
+        src/graphics/Material.h
+        src/building/Tile.cpp
+        src/building/Tile.h
+        src/building/Floor.cpp
+        src/building/Floor.h
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

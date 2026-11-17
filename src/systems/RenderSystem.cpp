@@ -5,10 +5,16 @@
 #include "../EntityManager.h"
 #include "../components/SpriteComponent.h"
 #include "../components/AnimatedSpriteComponent.h"
+#include "../building/Floor.h"
 
 RenderSystem::RenderSystem() = default;
 
-void RenderSystem::process(sf::RenderWindow& window, EntityManager& entities, ComponentManager& components)
+void RenderSystem::process(
+    sf::RenderWindow& window,
+    EntityManager& entities,
+    ComponentManager& components,
+    std::vector<Floor>& floor
+)
 {
 
     std::vector<sf::Sprite> sprites{};
@@ -25,7 +31,12 @@ void RenderSystem::process(sf::RenderWindow& window, EntityManager& entities, Co
         }
     }
 
-    for (auto& sprite : sprites)
+    for (Floor& tile : floor)
+    {
+        window.draw(tile.material.sprite, &tile.material.shader);
+    }
+
+    for (sf::Sprite& sprite : sprites)
     {
         window.draw(sprite);
     }

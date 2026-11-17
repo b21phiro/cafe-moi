@@ -1,5 +1,7 @@
 #include "Play.h"
 #include "Cafemoi.h"
+#include "Color.h"
+#include "graphics/Material.h"
 
 Play::Play(Cafemoi &cafemoi)
     : m_cafemoi(cafemoi)
@@ -16,7 +18,7 @@ void Play::update(const sf::Time& delta)
 void Play::draw()
 {
     auto& window = m_cafemoi.getWindow();
-    window.clear();
+    window.clear(SkyBlue);
     m_world.draw(window);
     window.display();
 }

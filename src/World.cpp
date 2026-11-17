@@ -3,6 +3,8 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
+#include "building/Floor.h"
+
 World::World(InputManager& input, AssetsManager& assets)
     : m_assets(assets)
     , m_moveSystem(input)
@@ -46,6 +48,8 @@ World::World(InputManager& input, AssetsManager& assets)
 
     m_camera.setZoom(4.5f);
 
+    m_floor.emplace_back(Material::create(Wood, assets), sf::Vector2i(0, 0));
+
 }
 
 void World::update(const sf::Time& delta)
@@ -57,7 +61,7 @@ void World::update(const sf::Time& delta)
 void World::draw(sf::RenderWindow& window)
 {
     window.setView(m_camera.getView());
-    m_renderSystem.process(window, m_entities, m_components);
+    m_renderSystem.process(window, m_entities, m_components, m_floor);
 }
 
 void World::applyGameSettings(GameSettings& gameSettings)
