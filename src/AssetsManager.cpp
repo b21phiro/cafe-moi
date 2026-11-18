@@ -39,22 +39,3 @@ sf::Font &AssetsManager::getFont(const std::string &name)
     }
     return *m_fonts[name];
 }
-
-void AssetsManager::loadShader(const std::string& name, const std::filesystem::path& path)
-{
-    sf::Shader shader;
-    if (!shader.loadFromFile(path, sf::Shader::Type::Fragment))
-    {
-        throw std::runtime_error("Failed to load fragment shader: " + name);
-    }
-    m_shaders[name] = std::make_unique<sf::Shader>(std::move(shader));
-}
-
-sf::Shader& AssetsManager::getShader(const std::string& name)
-{
-    if (m_shaders.find(name) == m_shaders.end())
-    {
-        throw std::runtime_error("Shader not found: " + name);
-    }
-    return *m_shaders[name];
-}

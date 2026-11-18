@@ -1,7 +1,5 @@
 #include "Cafemoi.h"
 
-#include <iostream>
-
 Cafemoi::Cafemoi()
     : m_settings()
     , m_state(MenuState)
@@ -96,9 +94,6 @@ void Cafemoi::loadAssets()
     // Textures.
     m_assets.loadTexture("sprite-atlas", "resources/textures/cafemoi-sprite-atlas.png");
     m_assets.loadTexture("cafemoi-materials", "resources/textures/cafemoi-materials.png");
-
-    // Shaders
-    m_assets.loadShader("color-frag", "resources/shaders/color.frag");
 
     // Fonts.
     m_assets.loadFont("cafemoi-regular", "resources/fonts/Cafemoi Regular.ttf");

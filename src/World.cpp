@@ -48,7 +48,8 @@ World::World(InputManager& input, AssetsManager& assets)
 
     m_camera.setZoom(4.5f);
 
-    m_floor.emplace_back(Material::create(Wood, assets), sf::Vector2i(0, 0));
+    m_floor.emplace_back(Material::create(Wood, Planks_0, assets), sf::Vector2i(0, 0));
+    m_floor.emplace_back(Material::create(Stone, Tiled_0, assets), sf::Vector2i(1, 0));
 
 }
 
