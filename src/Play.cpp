@@ -5,9 +5,14 @@
 
 Play::Play(Cafemoi &cafemoi)
     : m_cafemoi(cafemoi)
-    , m_world(cafemoi.getInput(), cafemoi.getAssets())
+    , m_world(cafemoi.getAssets())
 {
     m_world.applyGameSettings(m_cafemoi.getSettings());
+}
+
+void Play::input(InputManager& input)
+{
+    m_world.input(input);
 }
 
 void Play::update(const sf::Time& delta)

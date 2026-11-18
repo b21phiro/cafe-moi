@@ -2,28 +2,41 @@
 #include "Cafemoi.h"
 #include "Color.h"
 
-Menu::Menu(Cafemoi &cafemoi)
+Menu::Menu(Cafemoi& cafemoi)
     : m_cafemoi(cafemoi)
     , m_backgroundColor(SkyBlue)
+    , m_pressedPlay(false)
+    , m_pressedExit(false)
 {
     initPlayButton();
     initExitButton();
     initVersionNumberText();
 }
 
-void Menu::update()
+void Menu::input(InputManager& input)
 {
-    auto& input = m_cafemoi.getInput();
+    m_pressedExit = false;
+    m_pressedPlay = false;
     if (input.wasMouseButtonJustReleased(sf::Mouse::Button::Left))
     {
-        auto& point = input.getMouse();
-        if (m_playButtonBounds.contains(point))
+        if (const auto& point = input.getMouse(); m_playButtonBounds.contains(point))
         {
-            m_cafemoi.play();
+            m_pressedPlay = true;
         } else if (m_exitButtonBounds.contains(point))
         {
-            m_cafemoi.exit();
+            m_pressedExit = true;
         }
+    }
+}
+
+void Menu::update() const
+{
+    if (m_pressedPlay)
+    {
+        m_cafemoi.play();
+    } else if (m_pressedExit)
+    {
+        m_cafemoi.exit();
     }
 }
 

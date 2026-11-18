@@ -10,27 +10,36 @@
 #include "../components/SpriteComponent.h"
 #include "../components/AnimatedSpriteComponent.h"
 
-MoveSystem::MoveSystem(InputManager& input)
-    : m_input(input)
-{}
+MoveSystem::MoveSystem() = default;
+
+void MoveSystem::input(InputManager &input, EntityManager &entities, ComponentManager &components)
+{
+    for (const Entity entity : entities.getAll())
+    {
+        if (
+            !components.has<TagComponent>(entity) ||
+            components.get<TagComponent>(entity).value != "Player" ||
+            !components.has<AnimatedSpriteComponent>(entity) ||
+            !components.has<SpeedComponent>(entity)
+        ) continue;
+        auto& speed = components.get<SpeedComponent>(entity);
+        auto& sprite = components.get<AnimatedSpriteComponent>(entity);
+        handlePlayerMovement(input, speed, sprite);
+    }
+}
 
 void MoveSystem::process(EntityManager& entities, ComponentManager& components, const sf::Time& delta)
 {
     for (const Entity entity : entities.getAll())
     {
-        if (!components.has<SpeedComponent>(entity)) continue;
-        auto& speed = components.get<SpeedComponent>(entity);
-        speed.setCurrent(sf::Vector2f(0.f, 0.f));
-
         if (
-            components.has<TagComponent>(entity) &&
-            components.has<AnimatedSpriteComponent>(entity) &&
-            components.get<TagComponent>(entity).value == "Player")
-        {
-            auto& sprite = components.get<AnimatedSpriteComponent>(entity);
-            handlePlayerMovement(speed, sprite);
-        }
+            !components.has<TagComponent>(entity) ||
+            components.get<TagComponent>(entity).value != "Player" ||
+            !components.has<AnimatedSpriteComponent>(entity) ||
+            !components.has<SpeedComponent>(entity)
+        ) continue;
 
+        auto& speed = components.get<SpeedComponent>(entity);
         normalizeSpeed(speed);
         speed.setCurrent(speed.current * delta.asSeconds() * 100.f);
 
@@ -42,24 +51,27 @@ void MoveSystem::process(EntityManager& entities, ComponentManager& components, 
         {
             components.get<AnimatedSpriteComponent>(entity).sprite->move(speed.current);
         }
+
+        speed.setCurrent(sf::Vector2f(0.f, 0.f));
+
     }
 }
 
-void MoveSystem::handlePlayerMovement(SpeedComponent& playerSpeed, AnimatedSpriteComponent& playerSprite)
+void MoveSystem::handlePlayerMovement(InputManager& input, SpeedComponent& playerSpeed, AnimatedSpriteComponent& playerSprite)
 {
-    if (m_input.isKeyDown(sf::Keyboard::Key::D) || m_input.isKeyDown(sf::Keyboard::Key::Right))
+    if (input.isKeyDown(sf::Keyboard::Key::D) || input.isKeyDown(sf::Keyboard::Key::Right))
     {
         playerSpeed.setCurrentX(1.f);
     }
-    if (m_input.isKeyDown(sf::Keyboard::Key::A) || m_input.isKeyDown(sf::Keyboard::Key::Left))
+    if (input.isKeyDown(sf::Keyboard::Key::A) || input.isKeyDown(sf::Keyboard::Key::Left))
     {
         playerSpeed.setCurrentX(-1.f);
     }
-    if (m_input.isKeyDown(sf::Keyboard::Key::W) || m_input.isKeyDown(sf::Keyboard::Key::Up))
+    if (input.isKeyDown(sf::Keyboard::Key::W) || input.isKeyDown(sf::Keyboard::Key::Up))
     {
         playerSpeed.setCurrentY(-1.f);
     }
-    if (m_input.isKeyDown(sf::Keyboard::Key::S) || m_input.isKeyDown(sf::Keyboard::Key::Down))
+    if (input.isKeyDown(sf::Keyboard::Key::S) || input.isKeyDown(sf::Keyboard::Key::Down))
     {
         playerSpeed.setCurrentY(1.f);
     }

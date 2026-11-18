@@ -5,6 +5,7 @@ namespace sf { class RenderWindow; }
 class ComponentManager;
 class EntityManager;
 struct Floor;
+class Building;
 
 class RenderSystem
 {
@@ -19,7 +20,7 @@ public:
         sf::RenderWindow& window,
         EntityManager& entities,
         ComponentManager& components,
-        std::vector<Floor>& floor
+        Building& building
     );
 
 };

@@ -12,15 +12,15 @@ class EntityManager;
 class MoveSystem
 {
 
-    InputManager& m_input;
-
-    void handlePlayerMovement(SpeedComponent& playerSpeed, AnimatedSpriteComponent& playerSprite);
+    void handlePlayerMovement(InputManager& input, SpeedComponent& playerSpeed, AnimatedSpriteComponent& playerSprite);
 
     void normalizeSpeed(SpeedComponent& speed);
 
 public:
 
-    explicit MoveSystem(InputManager& input);
+    MoveSystem();
+
+    void input(InputManager& input, EntityManager& entities, ComponentManager& components);
 
     void process(EntityManager& entities, ComponentManager& components, const sf::Time& delta = sf::Time::Zero);
 

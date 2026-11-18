@@ -35,6 +35,7 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/graphics/Material.cpp
         src/building/Tile.cpp
         src/building/Floor.cpp
+        src/building/Building.cpp
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

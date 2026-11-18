@@ -5,6 +5,8 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Text.hpp>
 
+#include "InputManager.h"
+
 namespace sf { class RenderWindow; }
 
 class Cafemoi;
@@ -41,9 +43,11 @@ class Menu
     sf::RectangleShape m_exitButtonRectBottom;
     std::unique_ptr<sf::Text> m_exitButtonText;
 
+    bool m_pressedPlay;
     void initPlayButton();
     void drawPlayButton();
 
+    bool m_pressedExit;
     void initExitButton();
     void drawExitButton();
 
@@ -56,7 +60,9 @@ public:
 
     Menu(Cafemoi &cafemoi);
 
-    void update();
+    void input(InputManager& input);
+
+    void update() const;
 
     void draw();
 

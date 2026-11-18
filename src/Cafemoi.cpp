@@ -24,14 +24,26 @@ void Cafemoi::run()
                 m_window.close();
             }
         }
+        input();
         update(delta);
         draw();
     }
 }
 
-void Cafemoi::update(const sf::Time& delta)
+void Cafemoi::input()
 {
     m_input.update(m_window);
+    if (m_state == MenuState)
+    {
+        m_menu->input(m_input);
+    } else if (m_state == PlayState)
+    {
+        m_play->input(m_input);
+    }
+}
+
+void Cafemoi::update(const sf::Time& delta)
+{
 
     if (m_exit == true)
     {

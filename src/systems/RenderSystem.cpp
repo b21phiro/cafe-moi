@@ -3,9 +3,9 @@
 #include "RenderSystem.h"
 #include "../ComponentManager.h"
 #include "../EntityManager.h"
+#include "../building/Building.h"
 #include "../components/SpriteComponent.h"
 #include "../components/AnimatedSpriteComponent.h"
-#include "../building/Floor.h"
 
 RenderSystem::RenderSystem() = default;
 
@@ -13,7 +13,7 @@ void RenderSystem::process(
     sf::RenderWindow& window,
     EntityManager& entities,
     ComponentManager& components,
-    std::vector<Floor>& floor
+    Building& building
 )
 {
 
@@ -31,7 +31,7 @@ void RenderSystem::process(
         }
     }
 
-    for (Floor& tile : floor)
+    for (Floor& tile : building.getFloor())
     {
         window.draw(tile.material.sprite, &tile.material.shader);
     }

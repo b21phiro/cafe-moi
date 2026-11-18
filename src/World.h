@@ -4,6 +4,7 @@
 #include "Camera.h"
 #include "ComponentManager.h"
 #include "EntityManager.h"
+#include "building/Building.h"
 #include "building/Floor.h"
 #include "systems/MoveSystem.h"
 #include "systems/RenderSystem.h"
@@ -22,7 +23,7 @@ class World
     MoveSystem m_moveSystem;
     RenderSystem m_renderSystem;
 
-    std::vector<Floor> m_floor;
+    Building m_building;
 
     template <typename T, typename ...Args>
     T& add(int entity, Args&& ...args);
@@ -32,8 +33,9 @@ class World
 
 public:
 
-    explicit World(InputManager& input, AssetsManager& assets);
+    explicit World(AssetsManager& assets);
 
+    void input(InputManager& input);
     void update(const sf::Time& delta = sf::Time::Zero);
     void draw(sf::RenderWindow& window);
 

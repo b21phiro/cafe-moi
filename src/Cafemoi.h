@@ -35,6 +35,7 @@ public:
 
     Cafemoi();
 
+    void input();
     void update(const sf::Time& delta = sf::Time::Zero);
     void draw();
     void run();
