@@ -38,6 +38,8 @@ add_executable(${PROJECT_NAME} src/main.cpp
         src/building/Building.cpp
         src/building/Wall.cpp
         src/building/Wall.h
+        src/systems/SpawnSystem.cpp
+        src/systems/SpawnSystem.h
 )
 
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)

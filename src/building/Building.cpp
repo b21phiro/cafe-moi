@@ -1,7 +1,8 @@
 #include "Building.h"
 
 Building::Building()
-    : m_columns(0), m_rows(0)
+    : m_columns(0)
+    , m_rows(0)
 {}
 
 Building::Building(const std::vector<std::vector<std::string>>& tilemap, AssetsManager& assets)
@@ -83,4 +84,14 @@ void Building::addFloor(Floor&& floor)
 void Building::addWall(Wall&& wall)
 {
     m_walls.emplace_back(std::move(wall));
+}
+
+void Building::setSpawn(const sf::Vector2i& tile)
+{
+    m_spawnPoint = sf::Vector2f(static_cast<float>(tile.x) * (Tile::width / 2.f), static_cast<float>(tile.y) * (Tile::height / 2.f));
+}
+
+sf::Vector2f& Building::getSpawn()
+{
+    return m_spawnPoint;
 }

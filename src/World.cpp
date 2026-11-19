@@ -58,6 +58,8 @@ World::World(AssetsManager& assets)
         { "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0" },
     }, assets);
 
+    m_building.setSpawn(sf::Vector2i(2, 3));
+
     m_camera.setZoom(3.5f);
     m_camera.setPosition(m_building.getCenterPosition());
 
@@ -73,6 +75,7 @@ void World::update(const sf::Time& delta)
 {
     m_renderSystem.updateAnimations(m_entities, m_components, delta);
     m_moveSystem.process(m_entities, m_components, delta);
+    m_spawnSystem.process(m_building, m_entities, m_components);
 }
 
 void World::draw(sf::RenderWindow& window)

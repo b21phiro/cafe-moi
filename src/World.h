@@ -5,9 +5,9 @@
 #include "ComponentManager.h"
 #include "EntityManager.h"
 #include "building/Building.h"
-#include "building/Floor.h"
 #include "systems/MoveSystem.h"
 #include "systems/RenderSystem.h"
+#include "systems/SpawnSystem.h"
 
 class AssetsManager;
 
@@ -22,6 +22,7 @@ class World
 
     MoveSystem m_moveSystem;
     RenderSystem m_renderSystem;
+    SpawnSystem m_spawnSystem;
 
     Building m_building;
 
