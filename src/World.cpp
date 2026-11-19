@@ -46,8 +46,9 @@ World::World(AssetsManager& assets)
     });
 
     m_building = Building({
+        { "wb0", "wb0", "wb0", "wb0", "wb0", "wb0", "wb0", "wb0", "wb0", "wb0" },
+        { "wb0", "wb0", "wb0", "wb0", "wb0", "wb0", "wb0", "wb0", "wb0", "wb0" },
         { "fw0", "fs0", "fs0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0" },
-        { "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0" },
         { "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0" },
         { "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0" },
         { "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0" },
@@ -57,7 +58,7 @@ World::World(AssetsManager& assets)
         { "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0", "fw0" },
     }, assets);
 
-    m_camera.setZoom(4.f);
+    m_camera.setZoom(3.5f);
     m_camera.setPosition(m_building.getCenterPosition());
 
 }

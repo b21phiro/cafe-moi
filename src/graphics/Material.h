@@ -10,13 +10,19 @@ enum MaterialType
 {
     Wood,
     Stone,
-    Unknown,
+    Brick,
+    Wallpaper,
+    UnknownMaterialType,
 };
 
 enum TextureType
 {
     Planks_0,
     Tiled_0,
+    Brick_0,
+    Wallpaper_0,
+    Wallpaper_1,
+    UnknownTextureType,
 };
 
 struct Material
@@ -33,6 +39,7 @@ struct Material
 
     void setColor1(float r, float g, float b);
     void setColor2(float r, float g, float b);
+    void setColor3(float r, float g, float b);
 
     static Material create(MaterialType materialType, TextureType textureType, AssetsManager& assets);
 

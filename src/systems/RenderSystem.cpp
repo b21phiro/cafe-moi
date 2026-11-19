@@ -31,7 +31,12 @@ void RenderSystem::process(
         }
     }
 
-    for (Floor& tile : building.getFloor())
+    for (Floor& tile : building.getFloors())
+    {
+        window.draw(tile.material.sprite, &tile.material.shader);
+    }
+
+    for (Wall& tile : building.getWalls())
     {
         window.draw(tile.material.sprite, &tile.material.shader);
     }
